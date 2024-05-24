@@ -13,35 +13,39 @@ using namespace std;
 
 namespace ariel{
 
-    class catan {
+    class Catan {
     private:
         static catan* instance; // catan need to be as a singelton
         vector<player> players;
         Board gameBoard;
-        player winner = 0; // THere is no winner yet
+        player winner; 
 
-        catan(){  // constructor
-            
+        Catan(){  // constructor
+            this->players;
+            this->gameBoard;
+            this->winner; // THere is no winner yet  
         }
-        ~catan(){ // distructor
-
+        ~Catan(){ // distructor
+            this->players.clear();
+            this->gameBoard.clear();
+            this->winner.clear();
         }
         
     public:
 
-        static catan* getInstance(){
+        static Catan* getInstance(){
             if(!instance){
-                instance = new catan();
+                instance = new Catan();
             }
             return instance;
         }
 
         Board getBoard();  // get the board of the game
-        ChooseStartingPlayer();   // should print the name of the starting player
-        printWinner(); // Should print None because no player reached 10 points.
+        Player ChooseStartingPlayer();   // should print the name of the starting player
+        void printWinner(); // Should print None because no player reached 10 points.
     };
 
-    catan* catan::instance = nullptr;
+    Catan* catan::instance = nullptr;
 }
 
 #endif // CATAN_HPP
