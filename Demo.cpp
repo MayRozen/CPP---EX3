@@ -17,9 +17,9 @@ using namespace ariel;
 
 int main()
 {
-    Player p1("Amit");
-    Player p2("Yossi");
-    Player p3("Dana");
+    ariel::Player p1("Amit");
+    ariel::Player p2("Yossi");
+    ariel::Player p3("Dana");
     Catan catan(p1, p2, p3);
     // Starting of the game. Every player places two settlements and two roads.
     catan.ChooseStartingPlayer();   // should print the name of the starting player, assume it is Amit.
