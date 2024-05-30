@@ -14,6 +14,7 @@ namespace ariel{
 class Player {
 public:
     string name;
+    vector<ReturnRes> returnRes; // All the resources the player has
     vector<Structure> roads;
     vector<Structure> settlements;
     vector<Structure> cities;
@@ -21,34 +22,35 @@ public:
     Player(string n) : name(n) {} // constructor
     ~Player() { // distructor
         this->name = "";
+        this->returnRes.clear();
         this->roads.clear();
         this->settlements.clear();
         this->cities.clear();
     } 
 
-    void addRoad(string name, vector<Tile> r);
+    void addRoad(Player p);
 
-    void addSettlement(string name, vector<Tile> r);
+    void addSettlement(Player p);
 
-    void addCity(string name, vector<Tile> r);;
+    void addCity(Player p);
 
-    void printPlayerInfo();
+    // void printPlayerInfo();
 
-    void placeSettelemnt(places, placesNum, board);
+    // void placeSettelemnt(places, placesNum, board);
 
-    void placeRoad(places, placesNum, board);
+    // void placeRoad(places, placesNum, board);
 
-    void rollDice();                                    // Lets say it's print 4. Then, p2 gets ore from the mountations.
+    // void rollDice();                                    // Lets say it's print 4. Then, p2 gets ore from the mountations.
     
-    void placeRoad({"Forest", "Hills"}, {5, 6}, board); // p1 continues to build a road.
+    // void placeRoad({"Forest", "Hills"}, {5, 6}, board); // p1 continues to build a road.
     
-    void trade(p2, "wood", "brick", 1, 1); // p1 trades 1 wood for 1 brick with p2.
+    // void trade(p2, "wood", "brick", 1, 1); // p1 trades 1 wood for 1 brick with p2.
     
-    bool endTurn();                        // p1 ends his turn.
+    // bool endTurn();                        // p1 ends his turn.
     
-    void buyDevelopmentCard(); // p2 buys a development card. Lets say it is a bonus points card.
+    // void buyDevelopmentCard(); // p2 buys a development card. Lets say it is a bonus points card.
     
-    void printPoints(); // p1 has 2 points because it has two settelments.
+    // void printPoints(); // p1 has 2 points because it has two settelments.
     
 };
 }
