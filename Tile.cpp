@@ -9,6 +9,7 @@
 
 
 enum class ResourceType { Hills, Forest, Mountains, Fields, Pasture, Desert, Sea };
+enum class ReturnRes {Lumber, Brick, Wool, Grain, Ore};
 /*
 Hills - produce Brick
 Forest - produce Lumber
@@ -39,30 +40,33 @@ public:
 
 class ResourceTile : public Tile {
 public:
-    enum class ResourceType {Lumber, Brick, Wool, Grain, Ore, Hills, Fields, Forest, Pasture, Mountains, Desert};
-
-    ResourceType resource;
+    ResourceType resource; // The Tile itself in the board
 
     ResourceTile(ResourceType resource, int number) : Tile(resource, number) {}
 
     void print() const {
-        std::cout << "Resource: " << getResourceName(resource) << ", Number: " << number << std::endl;
+        std::cout << "Resource: " << getTileName(resource) << ", Number: " << number << std::endl;
     }
 
-private:
-    std::string getResourceName(ResourceType resource) const {
+    string getTileName(ResourceType resource) const {
         switch (resource) {
-            case ResourceType::Lumber: return "Lumber";
-            case ResourceType::Brick: return "Brick";
-            case ResourceType::Wool: return "Wool";
-            case ResourceType::Grain: return "Grain";
-            case ResourceType::Ore: return "Ore";
             case ResourceType::Hills: return "Hills";
             case ResourceType::Fields: return "Fields";
             case ResourceType::Forest: return "Forest";
             case ResourceType::Pasture: return "Pasture";
             case ResourceType::Mountains: return "Mountains";
             case ResourceType::Desert: return "Desert";
+            default: return "Unknown";
+        }
+    }
+
+    string getReturnResName(ReturnRes res) const {
+        switch (res) {
+            case ReturnRes::Lumber: return "Lumber";
+            case ReturnRes::Brick: return "Brick";
+            case ReturnRes::Wool: return "Wool";
+            case ReturnRes::Grain: return "Grain";
+            case ReturnRes::Ore: return "Ore";
             default: return "Unknown";
         }
     }
