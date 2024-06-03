@@ -8,6 +8,8 @@
 #include "Tile.cpp"
 using namespace std;
 
+enum class StructureType { Road, Settlement, City };
+
 namespace ariel{
 class Structure { // Abstruct class
 public:
@@ -16,7 +18,7 @@ public:
 
     Structure(string n, vector<ReturnRes> r) : name(n), resources(r) {}
 
-    virtual ~Structure(); // distructor
+    virtual ~Structure() = 0; // distructor
     
 };
 
