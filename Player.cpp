@@ -158,4 +158,17 @@ namespace ariel{
             cout << "Name: " << city.name << endl;
         }
     }
+
+    // void placeSettelemnt(places, placesNum, board);
+
+    void placeRoad(Tile* tile1, Tile* tile2, Player p){
+        p.addRoad(p); // Checking the required resources and add a new road to p
+        road* newRoad = p.roads[p.roads.size()]; // The new road 
+
+        // Checking the index of the new road in tile1 and tile2
+
+        tile1->edges[edgeIndex].push_back(&newRoad);
+        tile2->edges[edgeIndex].push_back(&newRoad);
+
+    }
 }
