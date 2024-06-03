@@ -34,11 +34,11 @@ public:
 
     void addCity(Player p);
 
-    // void printPlayerInfo();
+    void printPlayerInfo();
 
     // void placeSettelemnt(places, placesNum, board);
 
-    // void placeRoad(places, placesNum, board);
+    void placeRoad(places, placesNum, board);
 
     // void rollDice();                                    // Lets say it's print 4. Then, p2 gets ore from the mountations.
     
