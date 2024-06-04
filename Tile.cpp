@@ -24,17 +24,19 @@ class Tile {
 public:
     ResourceType tileResource; // The type of the resource
     int number;  // The number token on the tile
-    vector<vector<Structure*>> vertices; // for settlements and citicies.
-    vector<vector<Structure*>> edges; // for roades
+    vector<Structure*> vertices; // for settlements and citicies.
+    vector<Structure*> edges; // for roades
+    vector<Tile*> neighbors; // Neighboring tiles
 
 
-    Tile(ResourceType resource, int num) : tileResource(resource), number(num),vertices() ,edges() {} // constructor
+    Tile(ResourceType resource, int num) : tileResource(resource), number(num),vertices(6) ,edges(6), neighbors(6) {} // constructor
 
     ~Tile(){
         this->tileResource = ResourceType::Sea;
         this->number = 0;
         this->vertices.clear();
         this->edges.clear();
+        this->neighbors.clear();
     }
     void print() const;
 };
