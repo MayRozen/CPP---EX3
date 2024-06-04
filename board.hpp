@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include "Tile.cpp"
+#include "Structure.cpp"
 
 using namespace std;
 
@@ -94,6 +95,53 @@ namespace ariel{
             tiles.push_back(new Tile(ResourceType::Sea, 0));
             tiles.push_back(new Tile(ResourceType::Sea, 0));
             tiles.push_back(new Tile(ResourceType::Sea, 0));
+
+
+        // Define neighbors for each tile
+        for (size_t i = 0; i < tiles.size(); ++i) {
+            Tile* currentTile = tiles[i];
+            
+            // Define neighbors based on the relative positions in the board
+
+            // Sea -> continue
+            if (i < 4 || i==7 || // sea + line1
+                i==8 || i==13 || // line 2
+                i==14 || i==20 || // line 3
+                i==21 || i==26 || // line 4
+                i==27 || i<=31) { // line 5 + sea
+                continue;
+            }
+            if (i == 4) { // Mountains, 10
+                currentTile->neighbors.push_back(tiles[3]); // sea
+                currentTile->neighbors.push_back(tiles[0]); // sea
+                currentTile->neighbors.push_back(tiles[0]); // sea
+                currentTile->neighbors.push_back(tiles[5]); // Pasture, 2
+                currentTile->neighbors.push_back(tiles[10]); // Hills, 6
+                currentTile->neighbors.push_back(tiles[9]); // Fields, 12
+            }
+            if (i == 5) { // Pasture, 2
+                currentTile->neighbors.push_back(tiles[4]); // Mountains, 10
+                currentTile->neighbors.push_back(tiles[1]); // sea
+                currentTile->neighbors.push_back(tiles[1]); // sea
+                currentTile->neighbors.push_back(tiles[6]); // Forest, 9
+                currentTile->neighbors.push_back(tiles[11]); // Pasture, 4
+                currentTile->neighbors.push_back(tiles[10]); // Hills, 6
+            }
+            if (i == 6) { // Forest, 9
+                currentTile->neighbors.push_back(tiles[5]); // Pasture, 2
+                currentTile->neighbors.push_back(tiles[2]); // sea
+                currentTile->neighbors.push_back(tiles[2]); // sea
+                currentTile->neighbors.push_back(tiles[7]); // sea
+                currentTile->neighbors.push_back(tiles[12]); //Hills, 10
+                currentTile->neighbors.push_back(tiles[11]); // Pasture, 4
+            }
+            if (i == 4) {
+                currentTile->neighbors.push_back(tiles[i - 1]); // Left neighbor
+            }
+            if (i == 4) { 
+                currentTile->neighbors.push_back(tiles[i + 1]); // Right neighbor
+            }
+        }
             
         }
 
