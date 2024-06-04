@@ -28,25 +28,29 @@ public:
         this->cities.clear();
     } 
 
-    void addRoad(Player p);
+    void addRoad();
 
-    void addSettlement(Player p);
+    void addSettlement();
 
-    void addCity(Player p);
+    void addCity();
 
     void printPlayerInfo();
 
-    // void placeSettelemnt(places, placesNum, board);
-
     void placeRoad(places, placesNum, board);
+    void placeRoad(Tile* tile1, Tile* tile2);
 
-    // void rollDice();                                    // Lets say it's print 4. Then, p2 gets ore from the mountations.
+    void placeSettelemnt(places, placesNum, board);
+    void placeSettlements(Tile* tile1, Tile* tile2, Tile* tile3);
+
+    void placeCity(Tile* tile1, Tile* tile2, Tile* tile3);
+
+    // void rollDice(); // Lets say it's print 4. Then, p2 gets ore from the mountations.
     
     // void placeRoad({"Forest", "Hills"}, {5, 6}, board); // p1 continues to build a road.
     
     // void trade(p2, "wood", "brick", 1, 1); // p1 trades 1 wood for 1 brick with p2.
     
-    // bool endTurn();                        // p1 ends his turn.
+    // bool endTurn(); // p1 ends his turn.
     
     // void buyDevelopmentCard(); // p2 buys a development card. Lets say it is a bonus points card.
     
