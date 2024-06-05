@@ -183,6 +183,26 @@ namespace ariel{
             cerr << "Error: The tiles do not share an edge." << endl;
         }
     }
+    bool Player::hasRoadBetween(Tile* tile1, Tile* tile2) {
+        for (Structure* road : road) {
+            if (road->connects(tile1, tile2)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    bool Player::canPlaceSettlement(Tile* tile1, Tile* tile2, Tile* tile3) {
+        // Check for two consecutive roads
+        for (size_t i=0; i<6; i++) {
+            Tile* t = tile1->neighbors[i];
+            for (size_t j=0; j<6; j++) {
+
+
+            }
+        }
+        return false;
+    }
 
     void Player::placeSettlements(Tile* tile1, Tile* tile2, Tile* tile3){
         addSettlement(); // Checking the required resources and add a new settlement
