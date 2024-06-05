@@ -111,6 +111,8 @@ namespace ariel{
                 i==27 || i<=31) { // line 5 + sea
                 continue;
             }
+
+            // -----------------------------line 1-----------------------------
             if (i == 4) { // Mountains, 10
                 currentTile->neighbors.push_back(tiles[3]); // sea
                 currentTile->neighbors.push_back(tiles[0]); // sea
@@ -132,14 +134,144 @@ namespace ariel{
                 currentTile->neighbors.push_back(tiles[2]); // sea
                 currentTile->neighbors.push_back(tiles[2]); // sea
                 currentTile->neighbors.push_back(tiles[7]); // sea
-                currentTile->neighbors.push_back(tiles[12]); //Hills, 10
+                currentTile->neighbors.push_back(tiles[12]); // Hills, 10
                 currentTile->neighbors.push_back(tiles[11]); // Pasture, 4
             }
-            if (i == 4) {
-                currentTile->neighbors.push_back(tiles[i - 1]); // Left neighbor
+
+            // -----------------------------line 2-----------------------------
+            if (i == 9) { // Fields, 12
+                currentTile->neighbors.push_back(tiles[8]); // sea
+                currentTile->neighbors.push_back(tiles[8]); // sea
+                currentTile->neighbors.push_back(tiles[4]); // Mountains, 10
+                currentTile->neighbors.push_back(tiles[10]); // Hills, 6
+                currentTile->neighbors.push_back(tiles[16]); // Forest, 11
+                currentTile->neighbors.push_back(tiles[15]); // Fields, 9
             }
-            if (i == 4) { 
-                currentTile->neighbors.push_back(tiles[i + 1]); // Right neighbor
+            if (i == 10) { // Hills, 6
+                currentTile->neighbors.push_back(tiles[9]); // Fields, 12
+                currentTile->neighbors.push_back(tiles[4]); // Mountains, 10
+                currentTile->neighbors.push_back(tiles[5]); // Pasture, 2
+                currentTile->neighbors.push_back(tiles[11]); // Pasture, 4
+                currentTile->neighbors.push_back(tiles[17]); // Desert, -1
+                currentTile->neighbors.push_back(tiles[16]); // Forest, 11
+            }
+            if (i == 11) { // Pasture, 4
+                currentTile->neighbors.push_back(tiles[10]); // Hills, 6
+                currentTile->neighbors.push_back(tiles[5]); // Pasture, 2
+                currentTile->neighbors.push_back(tiles[6]); // Forest, 9
+                currentTile->neighbors.push_back(tiles[12]); // Hills, 10
+                currentTile->neighbors.push_back(tiles[18]); // Forest, 3
+                currentTile->neighbors.push_back(tiles[17]); // Desert, -1
+            }
+            if (i == 12) { // Hills, 10
+                currentTile->neighbors.push_back(tiles[11]); // Pasture, 4
+                currentTile->neighbors.push_back(tiles[6]); // Forest, 9
+                currentTile->neighbors.push_back(tiles[13]); // sea
+                currentTile->neighbors.push_back(tiles[13]); // sea
+                currentTile->neighbors.push_back(tiles[19]); // Mountains, 8
+                currentTile->neighbors.push_back(tiles[18]); // Forest, 3
+            }
+
+            // -----------------------------line 3-----------------------------
+            if (i == 15) { // Fields, 9
+                currentTile->neighbors.push_back(tiles[14]); // sea
+                currentTile->neighbors.push_back(tiles[14]); // sea
+                currentTile->neighbors.push_back(tiles[9]); // Fields, 12
+                currentTile->neighbors.push_back(tiles[16]); // Forest, 11
+                currentTile->neighbors.push_back(tiles[22]); // Forest, 8
+                currentTile->neighbors.push_back(tiles[14]); // sea
+            }
+            if (i == 16) { // Forest, 11
+                currentTile->neighbors.push_back(tiles[15]); // Fields, 9
+                currentTile->neighbors.push_back(tiles[9]); // Fields, 12
+                currentTile->neighbors.push_back(tiles[10]); // Hills, 6
+                currentTile->neighbors.push_back(tiles[17]); // Desert, -1
+                currentTile->neighbors.push_back(tiles[23]); // Mountains, 3
+                currentTile->neighbors.push_back(tiles[22]); // Forest, 8
+            }
+            if (i == 17) { // Desert, -1
+                currentTile->neighbors.push_back(tiles[16]); // Forest, 11
+                currentTile->neighbors.push_back(tiles[10]); // Hills, 6
+                currentTile->neighbors.push_back(tiles[11]); // Pasture, 4
+                currentTile->neighbors.push_back(tiles[18]); // Forest, 3
+                currentTile->neighbors.push_back(tiles[24]); // Fields, 4
+                currentTile->neighbors.push_back(tiles[23]); // Mountains, 3
+            }
+            if (i == 18) { // Forest, 3
+                currentTile->neighbors.push_back(tiles[17]); // Desert, -1
+                currentTile->neighbors.push_back(tiles[11]); // Pasture, 4
+                currentTile->neighbors.push_back(tiles[12]); // Hills, 10
+                currentTile->neighbors.push_back(tiles[19]); // Mountains, 8
+                currentTile->neighbors.push_back(tiles[25]); // Pasture, 5
+                currentTile->neighbors.push_back(tiles[24]); // Fields, 4
+            }
+            if (i == 19) { // Mountains, 8
+                currentTile->neighbors.push_back(tiles[18]); // Forest, 3
+                currentTile->neighbors.push_back(tiles[12]); // Hills, 10
+                currentTile->neighbors.push_back(tiles[20]); // sea
+                currentTile->neighbors.push_back(tiles[20]); // sea
+                currentTile->neighbors.push_back(tiles[20]); // sea
+                currentTile->neighbors.push_back(tiles[25]); // Pasture, 5
+            }
+
+            // -----------------------------line 4-----------------------------
+            if (i == 22) { // Forest, 8
+                currentTile->neighbors.push_back(tiles[21]); // sea
+                currentTile->neighbors.push_back(tiles[15]); // Fields, 9
+                currentTile->neighbors.push_back(tiles[16]); // Forest, 11
+                currentTile->neighbors.push_back(tiles[23]); // Mountains, 3
+                currentTile->neighbors.push_back(tiles[28]); // Hills, 5
+                currentTile->neighbors.push_back(tiles[21]); // sea
+            }
+            if (i == 23) { // Mountains, 3
+                currentTile->neighbors.push_back(tiles[22]); // Forest, 8
+                currentTile->neighbors.push_back(tiles[16]); // Forest, 11
+                currentTile->neighbors.push_back(tiles[17]); // Desert, -1
+                currentTile->neighbors.push_back(tiles[24]); // Fields, 4
+                currentTile->neighbors.push_back(tiles[29]); // Fields, 6
+                currentTile->neighbors.push_back(tiles[28]); // Hills, 5
+            }
+            if (i == 24) { // Fields, 4
+                currentTile->neighbors.push_back(tiles[23]); // Mountains, 3
+                currentTile->neighbors.push_back(tiles[17]); // Desert, -1
+                currentTile->neighbors.push_back(tiles[18]); // Forest, 3 
+                currentTile->neighbors.push_back(tiles[25]); // Pasture, 5
+                currentTile->neighbors.push_back(tiles[30]); // Pasture, 11
+                currentTile->neighbors.push_back(tiles[29]); // Fields, 6
+            }
+            if (i == 25) { // Pasture, 5
+                currentTile->neighbors.push_back(tiles[24]); // Fields, 4
+                currentTile->neighbors.push_back(tiles[18]); // Forest, 3 
+                currentTile->neighbors.push_back(tiles[19]); // Mountains, 8
+                currentTile->neighbors.push_back(tiles[26]); // sea
+                currentTile->neighbors.push_back(tiles[26]); // sea
+                currentTile->neighbors.push_back(tiles[30]); // Pasture, 11
+            }
+
+            // -----------------------------line 5-----------------------------
+            if (i == 28) { // Hills, 5
+                currentTile->neighbors.push_back(tiles[27]); // sea
+                currentTile->neighbors.push_back(tiles[22]); // Forest, 8
+                currentTile->neighbors.push_back(tiles[23]); // Mountains, 3
+                currentTile->neighbors.push_back(tiles[29]); // Fields, 6
+                currentTile->neighbors.push_back(tiles[32]); // sea
+                currentTile->neighbors.push_back(tiles[32]); // sea
+            }
+            if (i == 29) { // Fields, 6
+                currentTile->neighbors.push_back(tiles[28]); // Hills, 5
+                currentTile->neighbors.push_back(tiles[23]); // Mountains, 3
+                currentTile->neighbors.push_back(tiles[24]); // Fields, 4
+                currentTile->neighbors.push_back(tiles[30]); // Pasture, 11
+                currentTile->neighbors.push_back(tiles[33]); // sea
+                currentTile->neighbors.push_back(tiles[33]); // sea
+            }
+            if (i == 30) { // Pasture, 11
+                currentTile->neighbors.push_back(tiles[29]); // Fields, 6 
+                currentTile->neighbors.push_back(tiles[24]); // Fields, 4
+                currentTile->neighbors.push_back(tiles[25]); // Pasture, 5
+                currentTile->neighbors.push_back(tiles[31]); // sea
+                currentTile->neighbors.push_back(tiles[34]); // sea
+                currentTile->neighbors.push_back(tiles[34]); // sea
             }
         }
             
