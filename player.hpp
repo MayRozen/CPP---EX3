@@ -39,6 +39,9 @@ public:
     void placeRoad(places, placesNum, board);
     void placeRoad(Tile* tile1, Tile* tile2);
 
+    bool hasRoadBetween(Tile* tile1, Tile* tile2);
+    bool canPlaceSettlement(Tile* tile1, Tile* tile2);
+
     void placeSettelemnt(places, placesNum, board);
     void placeSettlements(Tile* tile1, Tile* tile2, Tile* tile3);
 
