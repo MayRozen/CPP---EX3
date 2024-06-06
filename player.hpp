@@ -28,6 +28,7 @@ public:
         this->cities.clear();
     } 
 
+// -----------------------------Structure-----------------------------
     void addRoad();
 
     void addSettlement();
@@ -36,6 +37,7 @@ public:
 
     void printPlayerInfo();
 
+    void placeRoad({"Forest", "Hills"}, {5, 6}, board); // p1 continues to build a road.
     void placeRoad(places, placesNum, board);
     void placeRoad(Tile* tile1, Tile* tile2);
 
@@ -48,9 +50,10 @@ public:
 
     void placeCity(Tile* tile1, Tile* tile2, Tile* tile3);
 
-    // void rollDice(); // Lets say it's print 4. Then, p2 gets ore from the mountations.
+// -----------------------------Game Logic-----------------------------
+    void rollDice();
     
-    // void placeRoad({"Forest", "Hills"}, {5, 6}, board); // p1 continues to build a road.
+    
     
     // void trade(p2, "wood", "brick", 1, 1); // p1 trades 1 wood for 1 brick with p2.
     
