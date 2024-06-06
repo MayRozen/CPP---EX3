@@ -42,6 +42,7 @@ public:
     bool hasRoadBetween(Tile* tile1, Tile* tile2);
     bool canPlaceSettlement(Tile* tile1, Tile* tile2);
 
+    bool canPlaceSettlement(Tile* tile1, Tile* tile2, Tile* tile3); // Check for two consecutive roads
     void placeSettelemnt(places, placesNum, board);
     void placeSettlements(Tile* tile1, Tile* tile2, Tile* tile3);
 
