@@ -183,28 +183,97 @@ namespace ariel{
             cerr << "Error: The tiles do not share an edge." << endl;
         }
     }
-    bool Player::hasRoadBetween(Tile* tile1, Tile* tile2) {
-        for (Structure* road : road) {
-            if (road->connects(tile1, tile2)) {
+
+    // Check for two consecutive roads
+    bool Player::canPlaceSettlement(Tile* tile1, Tile* tile2, Tile* tile3) {
+        size_t indexTile2=0, indexTile3=0; // tile1
+        size_t indexTile12=0, indexTile32=0; // tile2
+        size_t indexTile23=0, indexTile13=0; // tile3
+        for (size_t i=0; i<6; i++) {
+            Tile* t = tile1->neighbors[i]; // Pointer to the i'th neighbor
+
+            // tile1
+            if(tile1->neighbors[i]==tile2){ // if it is tile2
+                indexTile2 = i; // save the index of it --in tile1 ! --
+            }
+            if(tile1->neighbors[i]==tile3){ // if it is tile3
+                indexTile3 = i;
+            }
+
+            // tile2
+            if(tile2->neighbors[i]==tile1){ // if it is tile1
+                indexTile12 = i;
+            }
+            if(tile2->neighbors[i]==tile3){ // if it is tile3
+                indexTile32 = i;
+            }
+
+            // tile3
+            if(tile3->neighbors[i]==tile2){ // if it is tile2
+                indexTile23 = i;
+            }
+            if(tile3->neighbors[i]==tile1){ // if it is tile1
+                indexTile13 = i;
+            }
+        }
+
+        // Ensure tiles are nearby
+        if (indexTile2 == -1 || indexTile3 == -1) {
+            return false; // One or both tiles are not neighbors of tile1
+        }
+
+        size_t smaller=0, bigger=0;
+
+        // tile1
+        if(indexTile2>indexTile3){
+            smaller = indexTile3;
+            bigger = indexTile2;
+        } else{
+            smaller = indexTile2;
+            bigger = indexTile3;
+        }
+
+        if(((tile1->edges[smaller] != NULL) && (tile1->edges[smaller-1] != NULL)) ||
+            ((tile1->edges[bigger] != NULL) && (tile1->edges[bigger+1] != NULL))){
                 return true;
             }
+
+        // tile2
+        if(indexTile12>indexTile32){
+            smaller = indexTile32;
+            bigger = indexTile12;
+        } else{
+            smaller = indexTile12;
+            bigger = indexTile32;
         }
-        return false;
-    }
-
-    bool Player::canPlaceSettlement(Tile* tile1, Tile* tile2, Tile* tile3) {
-        // Check for two consecutive roads
-        for (size_t i=0; i<6; i++) {
-            Tile* t = tile1->neighbors[i];
-            for (size_t j=0; j<6; j++) {
-
-
+        
+        if(((tile2->edges[smaller] != NULL) && (tile2->edges[smaller-1] != NULL)) ||
+            ((tile2->edges[bigger] != NULL) && (tile2->edges[bigger+1] != NULL))){
+                return true;
             }
+
+        // tile3
+        if(indexTile23>indexTile13){
+            smaller = indexTile13;
+            bigger = indexTile23;
+        } else{
+            smaller = indexTile23;
+            bigger = indexTile13;
         }
+
+        if(((tile3->edges[smaller] != NULL) && (tile3->edges[smaller-1] != NULL)) ||
+            ((tile3->edges[bigger] != NULL) && (tile3->edges[bigger+1] != NULL))){
+                return true;
+            }
+        
         return false;
     }
 
     void Player::placeSettlements(Tile* tile1, Tile* tile2, Tile* tile3){
+        if(!canPlaceSettlement(tile1, tile2, tile3)){ // The three tiles are not nearby
+            return;
+        }
+
         addSettlement(); // Checking the required resources and add a new settlement
         Structure* newSettlement = &(this->settlements.back()); // Get a pointer to the new settlement
 
@@ -223,9 +292,9 @@ namespace ariel{
         }
 
         if (indexTile1!=-1 && indexTile2!=-1 && indexTile3!=-1) {
-            tile1->edges.insert(tile1->edges.begin() + indexTile1, newSettlement); // The newSettlement will be at indexTile1
-            tile2->edges.insert(tile1->edges.begin() + indexTile2, newSettlement);
-            tile3->edges.insert(tile1->edges.begin() + indexTile3, newSettlement);
+            tile1->vertices.insert(tile1->vertices.begin() + indexTile1, newSettlement); // The newSettlement will be at indexTile1
+            tile2->vertices.insert(tile1->vertices.begin() + indexTile2, newSettlement);
+            tile3->vertices.insert(tile1->vertices.begin() + indexTile3, newSettlement);
         } else {
             cerr << "Error: The tiles do not share an vertex." << endl;
         }
@@ -250,9 +319,16 @@ namespace ariel{
         }
 
         if (indexTile1!=-1 && indexTile2!=-1 && indexTile3!=-1) {
-            tile1->edges.insert(tile1->edges.begin() + indexTile1, newCity); // The newCity will be at indexTile1
-            tile2->edges.insert(tile1->edges.begin() + indexTile2, newCity);
-            tile3->edges.insert(tile1->edges.begin() + indexTile3, newCity);
+
+            // There is a settlement
+            if((tile1->vertices[indexTile1] != nullptr)&&
+                (tile2->vertices[indexTile2] != nullptr)&&
+                (tile3->vertices[indexTile2] != nullptr)) {
+
+                tile1->vertices.insert(tile1->vertices.begin() + indexTile1, newCity); // The newCity will be at indexTile1
+                tile2->vertices.insert(tile1->vertices.begin() + indexTile2, newCity);
+                tile3->vertices.insert(tile1->vertices.begin() + indexTile3, newCity);
+            }
         } else {
             cerr << "Error: The tiles do not share an vertex." << endl;
         }
