@@ -18,6 +18,7 @@ public:
     vector<Structure> roads;
     vector<Structure> settlements;
     vector<Structure> cities;
+    int sumPoints;
 
     Player(string n) : name(n) {} // constructor
     ~Player() { // distructor
@@ -26,6 +27,7 @@ public:
         this->roads.clear();
         this->settlements.clear();
         this->cities.clear();
+        this->sumPoints = 0;
     } 
 
 // -----------------------------Structure-----------------------------
@@ -37,15 +39,14 @@ public:
 
     void printPlayerInfo();
 
-    void placeRoad({"Forest", "Hills"}, {5, 6}, board); // p1 continues to build a road.
-    void placeRoad(places, placesNum, board);
+    void placeRoad(vector<string> places, vector<int> placesNum); // p1 continues to build a road.
     void placeRoad(Tile* tile1, Tile* tile2);
 
     bool hasRoadBetween(Tile* tile1, Tile* tile2);
     bool canPlaceSettlement(Tile* tile1, Tile* tile2);
 
     bool canPlaceSettlement(Tile* tile1, Tile* tile2, Tile* tile3); // Check for two consecutive roads
-    void placeSettelemnt(places, placesNum, board);
+    void placeSettelemnt(vector<string> places, vector<int> placesNum);
     void placeSettlements(Tile* tile1, Tile* tile2, Tile* tile3);
 
     void placeCity(Tile* tile1, Tile* tile2, Tile* tile3);
