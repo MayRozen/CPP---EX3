@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "Tile.cpp"
+
 using namespace std;
 
 enum class StructureType { Road, Settlement, City };
