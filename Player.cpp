@@ -99,6 +99,7 @@ namespace ariel{
                 }
             if(checkB==1 && checkL==1 && checkW==1 && checkG ==1){
                     cout<<"A New Settlement has been successfully added to: "<< this->name<<endl;
+                    this->sumPoints=this->sumPoints++;
                     return;
                 }
             }
@@ -137,6 +138,7 @@ namespace ariel{
                 }
             if(checkO==3 && checkG==2){
                     cout<<"A New city has been successfully added to: "<< this->name<<endl;
+                    this->sumPoints=this->sumPoints++;
                     return;
                 }
             }
@@ -185,6 +187,50 @@ namespace ariel{
         } else {
             cerr << "Error: The tiles do not share an edge." << endl;
         }
+    }
+
+    void Player::placeRoad(vector<string> places, vector<int> placesNum) { // p1 continues to build a road.
+        string st1=places[0], st2=places[1];
+        int num1=placesNum[0], num2=placesNum[1];
+        ResourceType R1, R2;
+        // ResourceType { Hills, Forest, Mountains, Fields, Pasture, Desert, Sea };
+        if(st1=="Hills"){
+            R1 = ResourceType::Hills;
+        } else if(st1=="Forest"){
+            R1 = ResourceType::Forest;
+        } else if(st1=="Mountains"){
+            R1 = ResourceType::Mountains;
+        } else if(st1=="Fields"){
+            R1 = ResourceType::Fields;
+        } else if(st1=="Pasture"){
+            R1 = ResourceType::Pasture;
+        } else if(st1=="Desert"){
+            R1 = ResourceType::Desert;
+        } else if(st1=="Sea"){
+            R1 = ResourceType::Sea;
+        }
+
+        if(st2=="Hills"){
+            R2 = ResourceType::Hills;
+        } else if(st2=="Forest"){
+            R2 = ResourceType::Forest;
+        } else if(st2=="Mountains"){
+            R2 = ResourceType::Mountains;
+        } else if(st2=="Fields"){
+            R2 = ResourceType::Fields;
+        } else if(st2=="Pasture"){
+            R2 = ResourceType::Pasture;
+        } else if(st2=="Desert"){
+            R2 = ResourceType::Desert;
+        } else if(st2=="Sea"){
+            R2 = ResourceType::Sea;
+        }
+
+
+        Tile* tile1 = new Tile(R1, num1);
+        Tile* tile2 = new Tile(R2, num2);
+
+        placeRoad(tile1, tile2);
     }
 
     // Check for two consecutive roads
@@ -272,6 +318,67 @@ namespace ariel{
         return false;
     }
 
+    void Player::placeSettelemnt(vector<string> places, vector<int> placesNum){
+        string st1=places[0], st2=places[1], st3=places[2];
+        int num1=placesNum[0], num2=placesNum[1], num3=placesNum[2];
+        ResourceType R1, R2, R3;
+        // ResourceType { Hills, Forest, Mountains, Fields, Pasture, Desert, Sea };
+        if(st1=="Hills"){
+            R1 = ResourceType::Hills;
+        } else if(st1=="Forest"){
+            R1 = ResourceType::Forest;
+        } else if(st1=="Mountains"){
+            R1 = ResourceType::Mountains;
+        } else if(st1=="Fields"){
+            R1 = ResourceType::Fields;
+        } else if(st1=="Pasture"){
+            R1 = ResourceType::Pasture;
+        } else if(st1=="Desert"){
+            R1 = ResourceType::Desert;
+        } else if(st1=="Sea"){
+            R1 = ResourceType::Sea;
+        }
+
+        if(st2=="Hills"){
+            R2 = ResourceType::Hills;
+        } else if(st2=="Forest"){
+            R2 = ResourceType::Forest;
+        } else if(st2=="Mountains"){
+            R2 = ResourceType::Mountains;
+        } else if(st2=="Fields"){
+            R2 = ResourceType::Fields;
+        } else if(st2=="Pasture"){
+            R2 = ResourceType::Pasture;
+        } else if(st2=="Desert"){
+            R2 = ResourceType::Desert;
+        } else if(st2=="Sea"){
+            R2 = ResourceType::Sea;
+        }
+
+        if(st3=="Hills"){
+            R3 = ResourceType::Hills;
+        } else if(st3=="Forest"){
+            R3 = ResourceType::Forest;
+        } else if(st3=="Mountains"){
+            R3 = ResourceType::Mountains;
+        } else if(st3=="Fields"){
+            R3 = ResourceType::Fields;
+        } else if(st3=="Pasture"){
+            R3 = ResourceType::Pasture;
+        } else if(st3=="Desert"){
+            R3 = ResourceType::Desert;
+        } else if(st3=="Sea"){
+            R3 = ResourceType::Sea;
+        }
+
+
+        Tile* tile1 = new Tile(R1, num1);
+        Tile* tile2 = new Tile(R2, num2);
+        Tile* tile3 = new Tile(R3, num3);
+
+        placeSettlements(tile1, tile2, tile3);
+    }
+
     void Player::placeSettlements(Tile* tile1, Tile* tile2, Tile* tile3){
         if(!canPlaceSettlement(tile1, tile2, tile3)){ // The three tiles are not nearby
             return;
@@ -347,8 +454,8 @@ namespace ariel{
         int dice2 = rand() % 6 + 1;
 
         // Output the results
-        std::cout << "Dice 1: " << dice1 << std::endl;
-        std::cout << "Dice 2: " << dice2 << std::endl;
-        std::cout << "Total: " << dice1 + dice2 << std::endl;
+        cout << "Dice 1: " << dice1 << endl;
+        cout << "Dice 2: " << dice2 << endl;
+        cout << "Total: " << dice1 + dice2 << endl;
     }
 }
