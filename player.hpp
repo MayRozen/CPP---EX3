@@ -7,6 +7,7 @@
 #include <vector>
 #include "Tile.cpp"
 #include "Structure.cpp"
+#include "DevelopmentCard.hpp"
 using namespace std;
 
 namespace ariel{
@@ -18,6 +19,7 @@ public:
     vector<Structure> roads;
     vector<Structure> settlements;
     vector<Structure> cities;
+    vector<DevelopmentCard> DevelopmentCards;
     int sumPoints;
 
     Player(string n) : name(n) {} // constructor
@@ -27,6 +29,7 @@ public:
         this->roads.clear();
         this->settlements.clear();
         this->cities.clear();
+        this->DevelopmentCards.clear();
         this->sumPoints = 0;
     } 
 
