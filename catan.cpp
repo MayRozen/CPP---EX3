@@ -11,15 +11,19 @@ using namespace std;
 
 namespace ariel{
 
-    Board catan::getBoard() const{ // get the board of the game
-        return gameBoard;
+    Board Catan::getBoard(){ // get the board of the game
+        return *this->gameBoard;
     }
 
-    Player catan::ChooseStartingPlayer(){ // should print the name of the starting player
+    vector<Player>& Catan::getPlayers(){
+        return this->players;
+    }
+
+    Player Catan::ChooseStartingPlayer(){ // should print the name of the starting player
 
     }
 
-    void catan::printWinner(){ // Should print None because no player reached 10 points.
+    void Catan::printWinner(){ // Should print None because no player reached 10 points.
         cout << " The winner is:" << winner << endl;
     }
 }
