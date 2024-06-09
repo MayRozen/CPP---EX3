@@ -8,7 +8,6 @@
 #include <iostream>
 #include <vector>
 #include "Tile.cpp"
-#include "Structure.cpp"
 
 using namespace std;
 
