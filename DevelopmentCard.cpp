@@ -19,7 +19,7 @@ string MonopolyCard::getCardName() const {
 }
 
 void MonopolyCard::useCard(Player& p) {
-            Catan* game = Catan::getInstance();
+        Catan* game = Catan::getInstance();
         vector<Player>& players = game->getPlayers();
         ReturnRes takenRes; // The resource the player want to take
 
@@ -153,7 +153,48 @@ string YearOfAbundanceCard::getCardName() const {
 }
 
 void YearOfAbundanceCard::useCard(Player& p) {
-    cout << "Year Of Abundance: Choose 2 resources without any resource payment." << endl;
+    string R1, R2;
+    ReturnRes Res1, Res2;
+    cout << " Choose 2 resources from the checkout: ";
+    cin >> R1;
+    cin >> R2;
+
+    // ReturnRes {Lumber, Brick, Wool, Grain, Ore};
+    if(R1=="Lumber"){
+        Res1 = ReturnRes::Lumber;
+        p.returnRes.push_back(Res1);
+    } else if(R1=="Brick"){
+        Res1 = ReturnRes::Brick;
+        p.returnRes.push_back(Res1);
+    } else if(R1=="Wool"){
+        Res1 = ReturnRes::Wool;
+        p.returnRes.push_back(Res1);
+    } else if(R1=="Grain"){
+        Res1 = ReturnRes::Grain;
+        p.returnRes.push_back(Res1);
+    } else if(R1=="Ore"){
+        Res1 = ReturnRes::Ore;
+        p.returnRes.push_back(Res1);
+    }
+
+    if(R2=="Lumber"){
+        Res2 = ReturnRes::Lumber;
+        p.returnRes.push_back(Res2);
+    } else if(R2=="Brick"){
+        Res2 = ReturnRes::Brick;
+        p.returnRes.push_back(Res2);
+    } else if(R2=="Wool"){
+        Res2 = ReturnRes::Wool;
+        p.returnRes.push_back(Res2);
+    } else if(R2=="Grain"){
+        Res2 = ReturnRes::Grain;
+        p.returnRes.push_back(Res2);
+    } else if(R2=="Ore"){
+        Res2 = ReturnRes::Ore;
+        p.returnRes.push_back(Res2);
+    }
+
+    cout << p.name << "chose: " << R1 << " and " << R2 << endl;
 }
 
 // -----------------------------KnightCard-----------------------------
@@ -166,7 +207,30 @@ string KnightCard::getCardName() const {
 }
 
 void KnightCard::useCard(Player& p) {
-    cout << "Knight: Move the robber." << endl;
+    p.sumOfKnights = p.sumOfKnights++; // Add one more knight to p
+    int TheBigArmy = 0;
+    Player* biggestKnight; // Pointer to the player which has the biggest army
+
+    Catan* game = Catan::getInstance();
+    vector<Player>& players = game->getPlayers(); // All the players of the game
+
+    for(size_t i=0; i<players.size()-1; i++){ // Checking how has the biggest army
+        if(players[i].sumOfKnights > players[i+1].sumOfKnights){
+            biggestKnight = &players[i]; // Update the pointer
+            TheBigArmy = players[i].sumOfKnights; // The sum of the largest army
+        }
+    }
+
+    // P has the lergest army than the others OR his army >=3
+    if(p.sumOfKnights>TheBigArmy || (TheBigArmy<3 && p.sumOfKnights>=3)){
+        p.sumPoints = p.sumPoints + 2; // 2 points more
+        cout << p.name << "has the largest army! and gets 2 points" << endl;
+    }
+    else{
+        biggestKnight->sumPoints = biggestKnight->sumPoints + 2;
+        cout << biggestKnight->name << "has the largest army! and gets 2 points" << endl;
+    }
+    
 }
 
 // -----------------------------VictoryPointCard-----------------------------
@@ -179,7 +243,8 @@ string VictoryPointCard::getCardName() const {
 }
 
 void VictoryPointCard::useCard(Player& p) {
-    cout << "Victory Point: Gain 1 victory point." << endl;
+    p.sumPoints = p.sumPoints++;
+    cout << p.name << "get a Victory Point." << endl;
 }
 
 } // namespace ariel
