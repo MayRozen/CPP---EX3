@@ -37,19 +37,6 @@ namespace ariel{
         
     public:
 
-        // void initializePlayers(Player p1, Player p2, Player p3) {
-        //     if (players.size() == 3) {
-        //         cout << "Game already initialized with 3 players." << endl;
-        //         return;
-        //     }
-
-        //     players.push_back(p1);
-        //     players.push_back(p2);
-        //     players.push_back(p3);
-
-        //     cout << "Game initialized with 3 players." << endl;
-        // }
-
         static Catan* getInstance(const Player& p1, const Player& p2, const Player& p3) {
             if (!instance) {
                 instance = new Catan(p1, p2, p3);
@@ -69,13 +56,31 @@ namespace ariel{
             }
         }
 
-        vector<Player>& getPlayers(); // Return this->Players
-        Board getBoard();  // get the board of the game
-        Player ChooseStartingPlayer();   // should print the name of the starting player
-        void printWinner(); // Should print None because no player reached 10 points.
+        vector<Player> getPlayers(){ // Return this->Players
+            return this->players;
+        }
+        
+        Board Catan::getBoard(){ // get the board of the game
+            return *this->gameBoard;
+        }
+        
+        Player Catan::ChooseStartingPlayer(){ // should print the name of the starting player
+            if (!players.empty()) {
+                cout << "The starting player is: " << players[0].name << endl;
+                return this->players[0];
+            } else {
+                cout << "No players available." << endl;
+                return;
+            }
+        }
+
+        void printWinner(){ // Should print None because no player reached 10 points.
+            cout << " The winner is:" << winner << endl;
+        }
     };
 
-    Catan* instance = nullptr;
+    // Define instance inside the Catan class
+    Catan* Catan::instance = nullptr;
 }
 
 #endif // CATAN_HPP
