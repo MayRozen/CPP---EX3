@@ -29,7 +29,7 @@ string MonopolyCard::getCardName() const {
 
 void MonopolyCard::useCard(Player& p) {
         Catan* game = Catan::getInstance();
-        vector<Player>& players = game->getPlayers();
+        vector<Player> players = game->getPlayers();
         ReturnRes takenRes; // The resource the player want to take
 
         int sumTakenRes = 0;
@@ -234,7 +234,7 @@ void KnightCard::useCard(Player& p) {
     Player* biggestKnight; // Pointer to the player which has the biggest army
 
     Catan* game = Catan::getInstance();
-    vector<Player>& players = game->getPlayers(); // All the players of the game
+    vector<Player> players = game->getPlayers(); // All the players of the game
 
     for(size_t i=0; i<players.size()-1; i++){ // Checking how has the biggest army
         if(players[i].sumOfKnights > players[i+1].sumOfKnights){
