@@ -5,8 +5,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "Tile.cpp"
-#include "Structure.cpp"
 #include "DevelopmentCard.hpp"
 using namespace std;
 
