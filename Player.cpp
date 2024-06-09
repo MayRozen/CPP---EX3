@@ -318,7 +318,7 @@ namespace ariel{
         return false;
     }
 
-    void Player::placeSettelemnt(vector<string> places, vector<int> placesNum){
+    void Player::placeSettelemnts(vector<string> places, vector<int> placesNum){
         string st1=places[0], st2=places[1], st3=places[2];
         int num1=placesNum[0], num2=placesNum[1], num3=placesNum[2];
         ResourceType R1, R2, R3;
