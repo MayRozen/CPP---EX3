@@ -7,6 +7,15 @@ using namespace std;
 
 namespace ariel {
 
+size_t findIndex(vector<DevelopmentCard> arr, CardType D){
+    for(size_t i=0; i<arr.size(); i++){
+        if(arr[i].getCardName() == toString(D)){
+            return i;
+        }
+    }
+    return -1;
+}
+
 DevelopmentCard::~DevelopmentCard() {}
 
 // -----------------------------MonopolyCard-----------------------------
@@ -38,6 +47,10 @@ void MonopolyCard::useCard(Player& p) {
         for(size_t i=0;  i<(size_t)sumTakenRes; i++){ // Add to p all the taken resources
             p.returnRes.push_back(takenRes);
         }
+
+        // Remove the Development Card after use
+        size_t needBeRemove = findIndex(p.DevelopmentCards, this->getType());
+        p.DevelopmentCards.erase(p.DevelopmentCards.begin() + needBeRemove);
 
         cout<<p.name<< " get "<<sumTakenRes << " of "<< to_string(takenRes)<<endl;
 }
@@ -140,6 +153,11 @@ void BuildingRoadsCard::useCard(Player& p) {
 
     p.placeRoad(tile1, tile2);
     p.placeRoad(tile3, tile4);
+
+    // Remove the Development Card after use
+    size_t needBeRemove = findIndex(p.DevelopmentCards, this->getType());
+    p.DevelopmentCards.erase(p.DevelopmentCards.begin() + needBeRemove);
+
     cout << "Building Roads: Build 2 roads without any resource payment." << endl;
 }
 
@@ -194,6 +212,10 @@ void YearOfAbundanceCard::useCard(Player& p) {
         p.returnRes.push_back(Res2);
     }
 
+    // Remove the Development Card after use
+    size_t needBeRemove = findIndex(p.DevelopmentCards, this->getType());
+    p.DevelopmentCards.erase(p.DevelopmentCards.begin() + needBeRemove);
+
     cout << p.name << "chose: " << R1 << " and " << R2 << endl;
 }
 
@@ -230,7 +252,10 @@ void KnightCard::useCard(Player& p) {
         biggestKnight->sumPoints = biggestKnight->sumPoints + 2;
         cout << biggestKnight->name << "has the largest army! and gets 2 points" << endl;
     }
-    
+
+    // Remove the Development Card after use
+    size_t needBeRemove = findIndex(p.DevelopmentCards, this->getType());
+    p.DevelopmentCards.erase(p.DevelopmentCards.begin() + needBeRemove);
 }
 
 // -----------------------------VictoryPointCard-----------------------------
@@ -244,6 +269,11 @@ string VictoryPointCard::getCardName() const {
 
 void VictoryPointCard::useCard(Player& p) {
     p.sumPoints = p.sumPoints++;
+
+    // Remove the Development Card after use
+    size_t needBeRemove = findIndex(p.DevelopmentCards, this->getType());
+    p.DevelopmentCards.erase(p.DevelopmentCards.begin() + needBeRemove);
+
     cout << p.name << "get a Victory Point." << endl;
 }
 
