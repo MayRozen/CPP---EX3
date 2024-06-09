@@ -37,6 +37,7 @@ public:
     virtual void useCard(Player& p) = 0;
 };
 
+// -----------------------------MonopolyCard-----------------------------
 class MonopolyCard : public DevelopmentCard {
 public:
     CardType getType() const override { return CardType::Monopoly; }
@@ -46,6 +47,7 @@ public:
     void useCard(Player& p) override;
 };
 
+// -----------------------------BuildingRoadsCard-----------------------------
 class BuildingRoadsCard : public DevelopmentCard {
 public:
     CardType getType() const override { return CardType::BuildingRoads; }
@@ -53,31 +55,28 @@ public:
     void useCard(Player& p) override;
 };
 
+// -----------------------------YearOfAbundanceCard-----------------------------
 class YearOfAbundanceCard : public DevelopmentCard {
 public:
     CardType getType() const override { return CardType::YearOfAbundance; }
     string getCardName() const override { return "Year Of Abundance"; }
-    void useCard(Player& p) override {
-        cout << "Year Of Abundance: Choose 2 resources without any resource payment." << endl;
-    }
+    void useCard(Player& p) override;
 };
 
+// -----------------------------KnightCard-----------------------------
 class KnightCard : public DevelopmentCard {
 public:
     CardType getType() const override { return CardType::Knight; }
     string getCardName() const override { return "Knight"; }
-    void useCard(Player& p) override {
-        cout << "Knight: Move the robber." << endl;
-    }
+    void useCard(Player& p) override;
 };
 
+// -----------------------------VictoryPointCard-----------------------------
 class VictoryPointCard : public DevelopmentCard {
 public:
     CardType getType() const override { return CardType::VictoryPoint; }
     string getCardName() const override { return "Victory Point"; }
-    void useCard(Player& p) override {
-        cout << "Victory Point: Gain 1 victory point." << endl;
-    }
+    void useCard(Player& p) override;
 };
 
 } // namespace ariel
