@@ -12,6 +12,17 @@
 enum class ResourceType { Hills, Forest, Mountains, Fields, Pasture, Desert, Sea };
 enum class ReturnRes {Lumber, Brick, Wool, Grain, Ore};
 
+std::string to_string(ReturnRes res) {
+    switch (res) {
+        case ReturnRes::Lumber: return "Lumber";
+        case ReturnRes::Brick: return "Brick";
+        case ReturnRes::Wool: return "Wool";
+        case ReturnRes::Grain: return "Grain";
+        case ReturnRes::Ore: return "Ore";
+        default: return "Unknown";
+    }
+}
+
 /*
 Hills - produce Brick
 Forest - produce Lumber
