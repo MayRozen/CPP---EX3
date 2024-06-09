@@ -9,7 +9,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <vector>
-#include "catan.hpp"
+#include "catan.cpp"
 #include "player.hpp"
 #include "board.hpp"
 using namespace std;
@@ -20,10 +20,10 @@ int main()
     ariel::Player p1("Amit");
     ariel::Player p2("Yossi");
     ariel::Player p3("Dana");
-    Catan catan(p1, p2, p3);
+    Catan* catan = Catan::getInstance(p1, p2, p3);
     // Starting of the game. Every player places two settlements and two roads.
-    catan.ChooseStartingPlayer();   // should print the name of the starting player, assume it is Amit.
-    Board board = catan.getBoard(); // get the board of the game.
+    catan->ChooseStartingPlayer();   // should print the name of the starting player, assume it is Amit.
+    Board board = catan->getBoard(); // get the board of the game.
     vector<string> places = {"Forest", "Hills"};
     vector<int> placesNum = {3, 5};
     p1.placeSettelemnts(places, placesNum);
@@ -62,13 +62,13 @@ int main()
     // p1 has wood,bricks, and wheat, p2 has wood, ore, and wool, p3 has ore, wool, wheat.
     p1.rollDice();                                    // Lets say it's print 4. Then, p2 gets ore from the mountations.
     p1.placeRoad({"Forest", "Hills"}, {5, 6}); // p1 continues to build a road.
-    p1.endTurn();                                     // p1 ends his turn.
+    //p1.endTurn();                                     // p1 ends his turn.
 
     p2.rollDice(); // Lets say it's print 9. Then, p3 gets wool from the Pasture Land, p2 gets wool from the Pasture Land.
-    p2.endTurn();  // p2 ends his turn.
+    //p2.endTurn();  // p2 ends his turn.
 
     p3.rollDice(); // Lets say it's print 3. Then, p3 gets wheat from the Agricultural Land and Ore from the Mountains, p1 gets wheat from the Agricultural Land.
-    p3.endTurn();  // p3 ends his turn.
+    //p3.endTurn();  // p3 ends his turn.
 
     try
     {
@@ -80,16 +80,16 @@ int main()
     }
 
     p1.rollDice();                       // Lets say it's print 6. Then, p1 gets bricks from the hills.
-    p1.trade(p2, "wood", "brick", 1, 1); // p1 trades 1 wood for 1 brick with p2.
-    p1.endTurn();                        // p1 ends his turn.
+    //p1.trade(p2, "wood", "brick", 1, 1); // p1 trades 1 wood for 1 brick with p2.
+    //p1.endTurn();                        // p1 ends his turn.
 
     p2.rollDice();           // Lets say it's print 9. Then, p3 gets wool from the Pasture Land, p2 gets wool from the Pasture Land.
-    p2.buyDevelopmentCard(); // p2 buys a development card. Lets say it is a bonus points card.
-    p2.endTurn();            // p2 ends his turn.
+    //p2.buyDevelopmentCard(); // p2 buys a development card. Lets say it is a bonus points card.
+    //p2.endTurn();            // p2 ends his turn.
 
-    p1.printPoints(); // p1 has 2 points because it has two settelments.
-    p2.printPoints(); // p2 has 3 points because it has two settelments and a bonus points card.
-    p3.printPoints(); // p3 has 2 points because it has two settelments.
+    // p1.printPoints(); // p1 has 2 points because it has two settelments.
+    // p2.printPoints(); // p2 has 3 points because it has two settelments and a bonus points card.
+    // p3.printPoints(); // p3 has 2 points because it has two settelments.
 
-    catan.printWinner(); // Should print None because no player reached 10 points.
+    // catan.printWinner(); // Should print None because no player reached 10 points.
 }
