@@ -11,6 +11,7 @@
 
 enum class ResourceType { Hills, Forest, Mountains, Fields, Pasture, Desert, Sea };
 enum class ReturnRes {Lumber, Brick, Wool, Grain, Ore};
+
 /*
 Hills - produce Brick
 Forest - produce Lumber
