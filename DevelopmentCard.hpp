@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include <string>
-#include "catan.hpp"
+#include "catan.cpp"
 #include "Tile.cpp"
 using namespace std;
 
