@@ -9,6 +9,7 @@
 #include <string>
 #include "catan.cpp"
 #include "Tile.cpp"
+#include "player.hpp"
 using namespace std;
 
 /*
