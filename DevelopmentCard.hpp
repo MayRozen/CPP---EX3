@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <string>
+#include "catan.hpp"
 using namespace std;
 
 namespace ariel {
@@ -40,7 +41,22 @@ public:
     CardType getType() const override { return CardType::Monopoly; }
     string getCardName() const override { return "Monopoly"; }
     void useCard() override {
-        cout << "Monopoly: Take one resource type from all other players." << endl;
+        Catan* game = Catan::getInstance();
+        vector<Player>& players = game->getPlayers();
+        ResourceType takenRes; // The resource the player want to take
+
+        int sumTakenRes = 0;
+
+        for (size_t i = 0; i < players.size(); i++) {
+            Player& player = players[i];
+            for (size_t j = 0; j < player.returnRes.size(); j++) {
+                while (player.returnRes[j] == takenRes) {
+                    sumTakenRes++;
+                    player.returnRes.erase(player.returnRes.begin() + j); // Remove the resource from the player's list
+                    j--; // Adjust index after erasing
+                }
+            }
+        }
     }
 };
 
