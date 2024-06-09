@@ -49,7 +49,7 @@ public:
     bool canPlaceSettlement(Tile* tile1, Tile* tile2);
 
     bool canPlaceSettlement(Tile* tile1, Tile* tile2, Tile* tile3); // Check for two consecutive roads
-    void placeSettelemnt(vector<string> places, vector<int> placesNum);
+    void placeSettelemnts(vector<string> places, vector<int> placesNum);
     void placeSettlements(Tile* tile1, Tile* tile2, Tile* tile3);
 
     void placeCity(Tile* tile1, Tile* tile2, Tile* tile3);
