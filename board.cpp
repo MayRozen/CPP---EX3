@@ -4,7 +4,6 @@
 
 #include <iostream>
 #include "board.hpp"
-#include "Tile.cpp"
 using namespace std;
 
 namespace ariel {
