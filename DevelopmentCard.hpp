@@ -11,14 +11,6 @@
 #include "Tile.cpp"
 using namespace std;
 
-namespace ariel {
-enum class CardType {
-    Monopoly,
-    BuildingRoads,
-    YearOfAbundance,
-    Knight,
-    VictoryPoint
-};
 /*
 1   Monopoly -> can take one resourceType from all the other players
     BuildingRoads -> build 2 roads without any resourceType payment
@@ -28,6 +20,32 @@ enum class CardType {
 
 3   VictoryPoint -> there is 4 cards and every one can give 1 point
 */
+
+namespace ariel {
+enum class CardType {
+    Monopoly,
+    BuildingRoads,
+    YearOfAbundance,
+    Knight,
+    VictoryPoint
+};
+
+string toString(CardType type) {
+    switch(type) {
+        case CardType::Monopoly:
+            return "Monopoly";
+        case CardType::BuildingRoads:
+            return "Building Roads";
+        case CardType::YearOfAbundance:
+            return "Year of Abundance";
+        case CardType::Knight:
+            return "Knight";
+        case CardType::VictoryPoint:
+            return "Victory Point";
+        default:
+            return "Unknown";
+    }
+}
 
 class DevelopmentCard {
 public:
