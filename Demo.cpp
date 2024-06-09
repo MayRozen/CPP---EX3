@@ -26,20 +26,20 @@ int main()
     Board board = catan.getBoard(); // get the board of the game.
     vector<string> places = {"Forest", "Hills"};
     vector<int> placesNum = {3, 5};
-    p1.placeSettelemnt(places, placesNum);
+    p1.placeSettelemnts(places, placesNum);
     p1.placeRoad(places, placesNum);
     vector<string> places = {"Agricultural Land", "Desert"};
     vector<int> placesNum = {3, 4};
-    p1.placeSettelemnt(places, placesNum);
+    p1.placeSettelemnts(places, placesNum);
     p1.placeRoad(places, placesNum); // p1 chooses Forest, hills, Agricultural Land, Desert with numbers 5, 6, 3, 4.
 
     vector<string> places = {"Mountains", "Pasture Land"};
     vector<int> placesNum = {4, 9};
-    p2.placeSettelemnt(places, placesNum);
+    p2.placeSettelemnts(places, placesNum);
     p2.placeRoad(places, placesNum);
     try
     {
-        p3.placeSettelemnt(places, placesNum); // p3 tries to place a settlement in the same location as p2.
+        p3.placeSettelemnts(places, placesNum); // p3 tries to place a settlement in the same location as p2.
     }
     catch (const std::exception &e)
     {
@@ -47,16 +47,16 @@ int main()
     }
     vector<string> places = {"Forest", "Pasture Land"};
     vector<int> placesNum = {5, 9};
-    p2.placeSettelemnt(places, placesNum);
+    p2.placeSettelemnts(places, placesNum);
     p2.placeRoad(places, placesNum); // p2 chooses Mountains, Pasture Land, and Forest with numbers 4, 9, 5.
 
     vector<string> places = {"Mountains", "Pasture Land"};
     vector<int> placesNum = {3, 8};
-    p3.placeSettelemnt(places, placesNum);
+    p3.placeSettelemnts(places, placesNum);
     p3.placeRoad(places, placesNum);
     vector<string> places = {"Agricultural Land", "Pasture Land"};
     vector<int> placesNum = {3, 9};
-    p3.placeSettelemnt(places, placesNum);
+    p3.placeSettelemnts(places, placesNum);
     p3.placeRoad(places, placesNum); // p3 chooses Mountains, Pasture Land, Agricultural Land, Pasture Land with numbers 3, 8, 3, 9.
 
     // p1 has wood,bricks, and wheat, p2 has wood, ore, and wool, p3 has ore, wool, wheat.
