@@ -40,7 +40,7 @@ class MonopolyCard : public DevelopmentCard {
 public:
     CardType getType() const override { return CardType::Monopoly; }
     string getCardName() const override { return "Monopoly"; }
-    void useCard() override {
+    void useCard(Player& p) override {
         Catan* game = Catan::getInstance();
         vector<Player>& players = game->getPlayers();
         ResourceType takenRes; // The resource the player want to take
@@ -53,9 +53,12 @@ public:
                 while (player.returnRes[j] == takenRes) {
                     sumTakenRes++;
                     player.returnRes.erase(player.returnRes.begin() + j); // Remove the resource from the player's list
-                    j--; // Adjust index after erasing
                 }
             }
+        }
+
+        for(size_t i=0;  i<(size_t)sumTakenRes; i++){
+            p.returnRes
         }
     }
 };
