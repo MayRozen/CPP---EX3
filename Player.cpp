@@ -7,8 +7,6 @@
 #include <vector>
 #include <cstdlib> // for rand() and srand()
 #include <ctime> // for time()
-#include "Tile.cpp"
-#include "Structure.cpp"
 #include "player.hpp"
 using namespace std;
 
