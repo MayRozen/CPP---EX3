@@ -15,10 +15,10 @@ namespace ariel{
 
     class Catan {
     private:
-        static catan* instance; // catan need to be as a singelton
-        vector<player> players;
-        Board gameBoard;
-        player winner; 
+        static Catan* instance; // catan need to be as a singelton
+        vector<Player> players;
+        Board *gameBoard;
+        Player *winner; 
 
         Catan(){  // constructor
             this->players;
@@ -27,8 +27,8 @@ namespace ariel{
         }
         ~Catan(){ // distructor
             this->players.clear();
-            this->gameBoard.clear();
-            this->winner.clear();
+            delete this->gameBoard;
+            delete this->winner;
         }
         
     public:
@@ -40,12 +40,13 @@ namespace ariel{
             return instance;
         }
 
+        vector<Player>& getPlayers(); // Return this->Players
         Board getBoard();  // get the board of the game
         Player ChooseStartingPlayer();   // should print the name of the starting player
         void printWinner(); // Should print None because no player reached 10 points.
     };
 
-    Catan* catan::instance = nullptr;
+    Catan* instance = nullptr;
 }
 
 #endif // CATAN_HPP
