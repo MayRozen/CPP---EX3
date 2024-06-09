@@ -20,6 +20,7 @@ public:
     vector<Structure> settlements;
     vector<Structure> cities;
     vector<DevelopmentCard> DevelopmentCards;
+    int sumOfKnights;
     int sumPoints;
 
     Player(string n) : name(n) {} // constructor
@@ -31,6 +32,7 @@ public:
         this->cities.clear();
         this->DevelopmentCards.clear();
         this->sumPoints = 0;
+        this->sumOfKnights=0;
     } 
 
 // -----------------------------Structure-----------------------------
