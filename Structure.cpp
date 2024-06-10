@@ -9,6 +9,7 @@
 using namespace std;
 
 enum class StructureType { Road, Settlement, City };
+enum class ReturnRes {Lumber, Brick, Wool, Grain, Ore};
 
 namespace ariel{
 class Structure { // Abstruct class
@@ -18,7 +19,7 @@ public:
 
     Structure(string n, vector<ReturnRes> r) : name(n), resources(r) {}
 
-    virtual ~Structure() = 0; // distructor
+    virtual ~Structure(); // distructor
     
 };
 
