@@ -15,40 +15,32 @@ namespace ariel{
 
     class Catan {
     private:
-        static Catan* instance; // catan need to be as a singelton
+        static Catan* instance; // Declare as static member
         vector<Player> players;
         Board *gameBoard;
         Player *winner; 
 
-         // Private constructor to prevent instantiation
-        Catan(const Player& p1, const Player& p2, const Player& p3) {
+        // Private constructor to prevent instantiation
+        Catan(Player& p1, Player& p2, Player& p3) {
             players.push_back(p1);
             players.push_back(p2);
             players.push_back(p3);
             gameBoard = new Board(); // Assume Board has a default constructor
-            winner = nullptr; // There is no winner yet
         }
 
         ~Catan(){ // distructor
             this->players.clear();
             delete this->gameBoard;
-            delete this->winner;
         }
         
     public:
 
-        static Catan* getInstance(const Player& p1, const Player& p2, const Player& p3) {
+        static Catan* getInstance(Player& p1, Player& p2, Player& p3) {
             if (!instance) {
                 instance = new Catan(p1, p2, p3);
             }
             return instance;
         }
-        
-        // Public method to get the singleton instance without arguments
-        static Catan* getInstance() {
-            return instance;
-        }
-
 
         void printPlayers() const {
             for (const auto& player : players) {
@@ -60,26 +52,32 @@ namespace ariel{
             return this->players;
         }
         
-        Board Catan::getBoard(){ // get the board of the game
+        Board getBoard(){ // get the board of the game
             return *this->gameBoard;
         }
         
-        Player Catan::ChooseStartingPlayer(){ // should print the name of the starting player
+        Player ChooseStartingPlayer(){ // should print the name of the starting player
             if (!players.empty()) {
                 cout << "The starting player is: " << players[0].name << endl;
                 return this->players[0];
             } else {
                 cout << "No players available." << endl;
-                return;
+            }
+        }
+
+        Player getWinner(){
+            for(size_t i=0; i<this->players.size(); i++){
+                if(this->players[i].sumPoints >= 10){ // For winning -> 10 or more points
+                    return this->players[i];
+                }
             }
         }
 
         void printWinner(){ // Should print None because no player reached 10 points.
-            cout << " The winner is:" << winner << endl;
+            cout << " The winner is:" << getWinner().name << endl;
         }
     };
 
-    // Define instance inside the Catan class
     Catan* Catan::instance = nullptr;
 }
 
