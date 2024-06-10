@@ -443,7 +443,7 @@ namespace ariel{
     }
 
 // -----------------------------Game Logic-----------------------------
-    void rollDice() {
+    void Player::rollDice() {
         // Seed the random number generator with current time
         srand(time(nullptr));
 
@@ -455,5 +455,76 @@ namespace ariel{
         cout << "Dice 1: " << dice1 << endl;
         cout << "Dice 2: " << dice2 << endl;
         cout << "Total: " << dice1 + dice2 << endl;
+    }
+
+    // For example: p1 trades 1 wood (str1) for 1 brick (str2) with p2.
+    void Player::trade(Player p2, string str1, string str2, int numOfStr1, int numOfStr2){
+        ReturnRes R1, R2;
+        R1 = fromStringToRes(str1);
+        R2 = fromStringToRes(str2);
+
+        for(size_t i=0; i<this->returnRes.size(); i++){ // str1 going to p2
+            if(this->returnRes[i] == R1){
+                this->returnRes.erase(this->returnRes.begin() + i); // Remove it from p1
+                p2.returnRes.push_back(R1); // Give it to p2
+            }
+        }
+
+        for(size_t i=0; i<p2.returnRes.size(); i++){ // str2 going to p1
+            if(p2.returnRes[i] == R2){
+                p2.returnRes.erase(p2.returnRes.begin() + i); // Remove it from p2
+                this->returnRes.push_back(R2); // Give it to p1
+            }
+        }
+
+        cout << "trade success: " << endl;
+        cout << this->name << " get " << numOfStr2 << " of " << str2;
+        cout << " and " << p2.name << " get " << numOfStr1 << " of " << str1 << endl;
+    }
+
+    bool Player::endTurn(){
+        this->turn = false;
+    }
+
+    void Player::buyDevelopmentCard(){
+        bool checkOre=false, checkGrain=false, checkWool=false;
+        VictoryPointCard card;
+        // First, let's check if p2 has the resources needed for buing a development card
+        for(size_t i=0; i<this->returnRes.size(); i++){
+            if(to_string(this->returnRes[i]) == "Ore"){
+                checkOre = true;
+            }
+            else if(to_string(this->returnRes[i]) == "Grain"){
+                checkGrain = true;
+            }
+            else if(to_string(this->returnRes[i]) == "Wool"){
+                checkWool = true;
+            }
+        }
+
+        if(checkOre==true && checkGrain==true && checkWool==true){ // p2 can buy a development card
+            this->DevelopmentCards.push_back(card); // Add the new card to p2
+
+            for(size_t i=0; i<this->returnRes.size(); i++){ // Payment
+                if((to_string(this->returnRes[i]) == "Ore") && (checkOre=true)){
+                    this->returnRes.erase(this->returnRes.begin() + i);
+                    checkOre = false; // To verify a one-time payment
+                }
+                else if((to_string(this->returnRes[i]) == "Grain") && (checkGrain=true)){
+                    this->returnRes.erase(this->returnRes.begin() + i);
+                    checkGrain = false;
+                }
+                else if((to_string(this->returnRes[i]) == "Wool") && (checkWool==true)){
+                    this->returnRes.erase(this->returnRes.begin() + i);
+                    checkWool = false;
+                }
+            }
+
+            cout << this->name << " buy a new "<< card.getCardName() << "card." << endl;
+        }
+    }
+
+    void Player::printPoints(){
+        cout << this->name << " has "<< this->sumPoints << " points." << endl;
     }
 }
