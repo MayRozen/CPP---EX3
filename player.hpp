@@ -7,6 +7,7 @@
 #include <vector>
 #include "DevelopmentCard.hpp"
 using namespace std;
+#pragma once
 
 namespace ariel{
 
@@ -20,6 +21,7 @@ public:
     vector<DevelopmentCard> DevelopmentCards;
     int sumOfKnights;
     int sumPoints;
+    bool turn = true; // When it is the player's turn -> true
 
     Player(string n) : name(n) {} // constructor
     ~Player() { // distructor
@@ -30,7 +32,8 @@ public:
         this->cities.clear();
         this->DevelopmentCards.clear();
         this->sumPoints = 0;
-        this->sumOfKnights=0;
+        this->sumOfKnights = 0;
+        this->turn = false;
     } 
 
 // -----------------------------Structure-----------------------------
@@ -57,15 +60,13 @@ public:
 // -----------------------------Game Logic-----------------------------
     void rollDice();
     
+    void trade(Player p2, string str1, string str2, int numOfStr1, int numOfStr2); // p1 trades 1 wood for 1 brick with p2.
     
+    bool endTurn();
     
-    // void trade(p2, "wood", "brick", 1, 1); // p1 trades 1 wood for 1 brick with p2.
+    void buyDevelopmentCard(); // p2 buys a development card. Lets say it is a bonus points card.
     
-    // bool endTurn(); // p1 ends his turn.
-    
-    // void buyDevelopmentCard(); // p2 buys a development card. Lets say it is a bonus points card.
-    
-    // void printPoints(); // p1 has 2 points because it has two settelments.
+    void printPoints(); // p1 has 2 points because it has two settelments.
     
 };
 }
