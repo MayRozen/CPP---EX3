@@ -48,12 +48,11 @@ string toString(CardType type) {
     }
 }
 
-class DevelopmentCard {
+class DevelopmentCard { // Abstract class
 public:
-    virtual ~DevelopmentCard() {}
-    virtual CardType getType() const = 0;
-    virtual string getCardName() const = 0;
-    virtual void useCard(Player& p) = 0;
+    virtual CardType getType() const = 0; // pure virtual -> Abstract
+    virtual string getCardName() const = 0; // pure virtual
+    virtual void useCard(Player& p) = 0; // pure virtual
 };
 
 // -----------------------------MonopolyCard-----------------------------
