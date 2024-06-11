@@ -10,8 +10,6 @@
 #include "player.hpp"
 using namespace std;
 
-namespace ariel{
-
 // -----------------------------Structure-----------------------------
     void Player::addRoad() {  // Requires: Brick & Lumber
         int BrickSum = 0, LumberSum = 0;
@@ -527,4 +525,3 @@ namespace ariel{
     void Player::printPoints(){
         cout << this->name << " has "<< this->sumPoints << " points." << endl;
     }
-}
