@@ -2,14 +2,15 @@
     Mail: mayrozen45@gmail.com
 */
 
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
+
 #include <iostream>
 #include <string>
 #include <vector>
 #include "DevelopmentCard.hpp"
-using namespace std;
-#pragma once
 
-namespace ariel{
+using namespace std;
 
 class Player {
 public:
@@ -69,4 +70,5 @@ public:
     void printPoints(); // p1 has 2 points because it has two settelments.
     
 };
-}
+
+#endif // DEVELOPMENTCARD_HPP
