@@ -11,7 +11,7 @@ using namespace std;
 enum class StructureType { Road, Settlement, City };
 enum class ReturnRes {Lumber, Brick, Wool, Grain, Ore};
 
-namespace ariel{
+
 class Structure { // Abstruct class
 public:
     string name;
@@ -38,4 +38,4 @@ public:
     city() : Structure("City", {ReturnRes::Ore, ReturnRes::Ore, ReturnRes::Ore, ReturnRes::Grain, ReturnRes::Grain}) {}
 };
 
-}
+
