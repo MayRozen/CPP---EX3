@@ -48,7 +48,7 @@ Fields - produce Grain
 Pasture - produce Wool
 Desert - produce nothing
 */
-namespace ariel{
+
 class Tile {
 public:
     ResourceType tileResource; // The type of the resource
@@ -112,6 +112,6 @@ public:
         }
     }
 };
-}
+
 
 #endif // TILE_HPP
