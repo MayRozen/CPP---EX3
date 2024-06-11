@@ -3,9 +3,8 @@
 */
 
 #include "DevelopmentCard.hpp"
+#include "catan.cpp"
 using namespace std;
-
-namespace ariel {
 
 size_t findIndex(vector<DevelopmentCard> arr, CardType D){
     for(size_t i=0; i<arr.size(); i++){
@@ -27,8 +26,7 @@ string MonopolyCard::getCardName() const {
     return "Monopoly";
 }
 
-void MonopolyCard::useCard(Player& p) {
-        Catan* game = Catan::getInstance();
+void MonopolyCard::useCard(Catan game, Player& p) {
         vector<Player> players = game->getPlayers();
         ReturnRes takenRes; // The resource the player want to take
 
@@ -64,7 +62,7 @@ string BuildingRoadsCard::getCardName() const {
     return "Building Roads";
 }
 
-void BuildingRoadsCard::useCard(Player& p) {
+void BuildingRoadsCard::useCard(Catan game, Player& p) {
     string tile1String, tile2String, tile3String, tile4String;
     ResourceType R1, R2, R3, R4;
     int t1, t2, t3, t4;
@@ -170,7 +168,7 @@ string YearOfAbundanceCard::getCardName() const {
     return "Year Of Abundance";
 }
 
-void YearOfAbundanceCard::useCard(Player& p) {
+void YearOfAbundanceCard::useCard(Catan game, Player& p) {
     string R1, R2;
     ReturnRes Res1, Res2;
     cout << " Choose 2 resources from the checkout: ";
@@ -228,12 +226,11 @@ string KnightCard::getCardName() const {
     return "Knight";
 }
 
-void KnightCard::useCard(Player& p) {
+void KnightCard::useCard(Catan game, Player& p) {
     p.sumOfKnights = p.sumOfKnights++; // Add one more knight to p
     int TheBigArmy = 0;
     Player* biggestKnight; // Pointer to the player which has the biggest army
 
-    Catan* game = Catan::getInstance();
     vector<Player> players = game->getPlayers(); // All the players of the game
 
     for(size_t i=0; i<players.size()-1; i++){ // Checking how has the biggest army
@@ -267,7 +264,7 @@ string VictoryPointCard::getCardName() const {
     return "Victory Point";
 }
 
-void VictoryPointCard::useCard(Player& p) {
+void VictoryPointCard::useCard(Catan game, Player& p) {
     p.sumPoints = p.sumPoints++;
 
     // Remove the Development Card after use
@@ -276,5 +273,3 @@ void VictoryPointCard::useCard(Player& p) {
 
     cout << p.name << "get a Victory Point." << endl;
 }
-
-} // namespace ariel
