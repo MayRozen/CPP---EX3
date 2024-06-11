@@ -11,7 +11,6 @@
 #include "board.hpp"
 using namespace std;
 
-namespace ariel{
 
     class Catan {
     private:
@@ -63,6 +62,7 @@ namespace ariel{
             } else {
                 cout << "No players available." << endl;
             }
+            return Player(""); // Return an empty player object
         }
 
         Player getWinner(){
@@ -71,6 +71,7 @@ namespace ariel{
                     return this->players[i];
                 }
             }
+            return Player(""); // Return an empty player object
         }
 
         void printWinner(){ // Should print None because no player reached 10 points.
@@ -79,6 +80,6 @@ namespace ariel{
     };
 
     Catan* Catan::instance = nullptr;
-}
+
 
 #endif // CATAN_HPP
