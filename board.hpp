@@ -11,7 +11,6 @@
 
 using namespace std;
 
-namespace ariel{
     class Board {
     private:
         // Vector to store pointers to tiles
@@ -291,6 +290,6 @@ namespace ariel{
         // Add methods for placing settlements, roads, etc.
     };
 
-} 
+
 
 #endif // BOARD_HPP
