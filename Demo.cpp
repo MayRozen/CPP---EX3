@@ -11,7 +11,7 @@
 #include <vector>
 #include "catan.cpp"
 using namespace std;
-using namespace ariel;
+
 
 int main()
 {
@@ -90,5 +90,5 @@ int main()
     p2.printPoints(); // p2 has 3 points because it has two settelments and a bonus points card.
     p3.printPoints(); // p3 has 2 points because it has two settelments.
 
-    Catan::catanGame.printWinner(); // Should print None because no player reached 10 points.
+    catanGame->printWinner(); // Should print None because no player reached 10 points.
 }
