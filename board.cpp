@@ -6,7 +6,6 @@
 #include "board.hpp"
 using namespace std;
 
-namespace ariel {
 
     vector<Tile*> Board::getTiles() const{
         return tiles;
@@ -28,7 +27,7 @@ namespace ariel {
     }
 
     Tile* Board::getTileAt(int boardIndex) const{
-        return tiles[boardIndex];
+        return tiles[(size_t)boardIndex];
     }
 
-}
+
