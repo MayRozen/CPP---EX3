@@ -11,6 +11,7 @@
 #include "DevelopmentCard.hpp"
 
 using namespace std;
+class Catan;
 
 class Player {
 public:
