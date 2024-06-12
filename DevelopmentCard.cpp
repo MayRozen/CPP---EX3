@@ -12,10 +12,8 @@ size_t findIndex(vector<DevelopmentCard> arr, CardType D){
             return i;
         }
     }
-    return -1;
+    return (size_t)-1;
 }
-
-DevelopmentCard::~DevelopmentCard() {}
 
 // -----------------------------MonopolyCard-----------------------------
 CardType MonopolyCard::getType() const {
@@ -26,7 +24,7 @@ string MonopolyCard::getCardName() const {
     return "Monopoly";
 }
 
-void MonopolyCard::useCard(Catan game, Player& p) {
+void MonopolyCard::useCard(Catan* game, Player& p) {
         vector<Player> players = game->getPlayers();
         ReturnRes takenRes; // The resource the player want to take
 
@@ -37,7 +35,7 @@ void MonopolyCard::useCard(Catan game, Player& p) {
             for (size_t j = 0; j < player.returnRes.size(); j++) {
                 while (player.returnRes[j] == takenRes) {
                     sumTakenRes++;
-                    player.returnRes.erase(player.returnRes.begin() + j); // Remove the resource from the player's list
+                    player.returnRes.erase(player.returnRes.begin() + static_cast<std::vector<DevelopmentCard>::difference_type>(j)); // Remove the resource from the player's list
                 }
             }
         }
@@ -48,7 +46,7 @@ void MonopolyCard::useCard(Catan game, Player& p) {
 
         // Remove the Development Card after use
         size_t needBeRemove = findIndex(p.DevelopmentCards, this->getType());
-        p.DevelopmentCards.erase(p.DevelopmentCards.begin() + needBeRemove);
+        p.DevelopmentCards.erase(p.DevelopmentCards.begin() + static_cast<std::vector<DevelopmentCard>::difference_type>(needBeRemove));
 
         cout<<p.name<< " get "<<sumTakenRes << " of "<< to_string(takenRes)<<endl;
 }
@@ -62,7 +60,7 @@ string BuildingRoadsCard::getCardName() const {
     return "Building Roads";
 }
 
-void BuildingRoadsCard::useCard(Catan game, Player& p) {
+void BuildingRoadsCard::useCard(Catan* game, Player& p) {
     string tile1String, tile2String, tile3String, tile4String;
     ResourceType R1, R2, R3, R4;
     int t1, t2, t3, t4;
@@ -154,7 +152,7 @@ void BuildingRoadsCard::useCard(Catan game, Player& p) {
 
     // Remove the Development Card after use
     size_t needBeRemove = findIndex(p.DevelopmentCards, this->getType());
-    p.DevelopmentCards.erase(p.DevelopmentCards.begin() + needBeRemove);
+    p.DevelopmentCards.erase(p.DevelopmentCards.begin() + static_cast<std::vector<DevelopmentCard>::difference_type>(needBeRemove));
 
     cout << "Building Roads: Build 2 roads without any resource payment." << endl;
 }
@@ -168,7 +166,7 @@ string YearOfAbundanceCard::getCardName() const {
     return "Year Of Abundance";
 }
 
-void YearOfAbundanceCard::useCard(Catan game, Player& p) {
+void YearOfAbundanceCard::useCard(Catan* game, Player& p) {
     string R1, R2;
     ReturnRes Res1, Res2;
     cout << " Choose 2 resources from the checkout: ";
@@ -212,7 +210,7 @@ void YearOfAbundanceCard::useCard(Catan game, Player& p) {
 
     // Remove the Development Card after use
     size_t needBeRemove = findIndex(p.DevelopmentCards, this->getType());
-    p.DevelopmentCards.erase(p.DevelopmentCards.begin() + needBeRemove);
+    p.DevelopmentCards.erase(p.DevelopmentCards.begin() + static_cast<std::vector<DevelopmentCard>::difference_type>(needBeRemove));
 
     cout << p.name << "chose: " << R1 << " and " << R2 << endl;
 }
@@ -226,7 +224,7 @@ string KnightCard::getCardName() const {
     return "Knight";
 }
 
-void KnightCard::useCard(Catan game, Player& p) {
+void KnightCard::useCard(Catan* game, Player& p) {
     p.sumOfKnights = p.sumOfKnights++; // Add one more knight to p
     int TheBigArmy = 0;
     Player* biggestKnight; // Pointer to the player which has the biggest army
@@ -252,7 +250,7 @@ void KnightCard::useCard(Catan game, Player& p) {
 
     // Remove the Development Card after use
     size_t needBeRemove = findIndex(p.DevelopmentCards, this->getType());
-    p.DevelopmentCards.erase(p.DevelopmentCards.begin() + needBeRemove);
+    p.DevelopmentCards.erase(p.DevelopmentCards.begin() + static_cast<std::vector<DevelopmentCard>::difference_type>(needBeRemove));
 }
 
 // -----------------------------VictoryPointCard-----------------------------
@@ -264,12 +262,12 @@ string VictoryPointCard::getCardName() const {
     return "Victory Point";
 }
 
-void VictoryPointCard::useCard(Catan game, Player& p) {
+void VictoryPointCard::useCard(Catan* game, Player& p) {
     p.sumPoints = p.sumPoints++;
 
     // Remove the Development Card after use
     size_t needBeRemove = findIndex(p.DevelopmentCards, this->getType());
-    p.DevelopmentCards.erase(p.DevelopmentCards.begin() + needBeRemove);
+    p.DevelopmentCards.erase(p.DevelopmentCards.begin() + static_cast<std::vector<DevelopmentCard>::difference_type>(needBeRemove));
 
     cout << p.name << "get a Victory Point." << endl;
 }
