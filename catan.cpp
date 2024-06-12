@@ -11,6 +11,7 @@
 #include "board.hpp"
 using namespace std;
 
+class Player;
 
     class Catan {
     private:
@@ -42,7 +43,7 @@ using namespace std;
         }
 
         void printPlayers() const {
-            for (const auto& player : players) {
+            for (auto& player : players) {
                 cout << player.name << endl;
             }
         }
@@ -62,7 +63,8 @@ using namespace std;
             } else {
                 cout << "No players available." << endl;
             }
-            return Player(""); // Return an empty player object
+            Player p("");
+            return p; // Return an empty player object
         }
 
         Player getWinner(){
