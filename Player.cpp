@@ -32,11 +32,11 @@ using namespace std;
             int checkB = 0, checkL = 0;
             for(size_t i=0; i<r.size(); i++){
                 if(checkB!=1 && r[i]==ReturnRes::Brick){
-                    this->returnRes.erase(r.begin()+i);
+                    this->returnRes.erase(r.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
                     checkB = 1;
                 }
                 if(checkL!=1 && r[i]==ReturnRes::Lumber){
-                    this->returnRes.erase(r.begin()+i);
+                    this->returnRes.erase(r.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
                     checkL = 1;
                 }
                 if(checkB==1 && checkL==1){
@@ -78,24 +78,24 @@ using namespace std;
             int checkB = 0, checkL = 0, checkW = 0, checkG = 0;
             for(size_t i=0; i<r.size(); i++){
                 if(r[i]==ReturnRes::Brick){
-                    this->returnRes.erase(r.begin()+i);
+                    this->returnRes.erase(r.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
                     checkB = 1;
                 }
                 if(r[i]==ReturnRes::Lumber){
-                    this->returnRes.erase(r.begin()+i);
+                    this->returnRes.erase(r.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
                     checkL = 1;
                 }
                 if(r[i]==ReturnRes::Wool){
-                    this->returnRes.erase(r.begin()+i);
+                    this->returnRes.erase(r.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
                     checkW = 1;
                 }
                 if(r[i]==ReturnRes::Grain){
-                    this->returnRes.erase(r.begin()+i);
+                    this->returnRes.erase(r.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
                     checkG = 1;
                 }
             if(checkB==1 && checkL==1 && checkW==1 && checkG ==1){
                     cout<<"A New Settlement has been successfully added to: "<< this->name<<endl;
-                    this->sumPoints=this->sumPoints++;
+                    this->sumPoints=this->sumPoints+1;
                     return;
                 }
             }
@@ -125,16 +125,16 @@ using namespace std;
             int checkO = 0, checkG = 0;
             for(size_t i=0; i<r.size(); i++){
                 if(r[i]==ReturnRes::Brick){
-                    this->returnRes.erase(r.begin()+i);
+                    this->returnRes.erase(r.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
                     checkO++;
                 }
                 if(r[i]==ReturnRes::Lumber){
-                    this->returnRes.erase(r.begin()+i);
+                    this->returnRes.erase(r.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
                     checkG++;
                 }
             if(checkO==3 && checkG==2){
                     cout<<"A New city has been successfully added to: "<< this->name<<endl;
-                    this->sumPoints=this->sumPoints++;
+                    this->sumPoints=this->sumPoints+1;
                     return;
                 }
             }
@@ -167,7 +167,7 @@ using namespace std;
         Structure* newRoad = &(this->roads.back()); // Get a pointer to the new road
 
         // Checking the index of the new road in tile1 and tile2
-        size_t indexTile1 = -1, indexTile2 = -1;
+        size_t indexTile1 = (size_t)-1, indexTile2 = (size_t)-1;
         for(size_t i=0; i<6; i++){
             if(tile1->neighbors[i]==tile2){
                 indexTile1 = i;
@@ -178,8 +178,8 @@ using namespace std;
         }
 
         if (indexTile1!=-1 && indexTile2!=-1) {
-            tile1->edges.insert(tile1->edges.begin() + indexTile1, newRoad); // The newRoad will be at indexTile1
-            tile2->edges.insert(tile1->edges.begin() + indexTile2, newRoad);
+            tile1->edges.insert(tile1->edges.begin() + static_cast<std::vector<Structure*>::difference_type>(indexTile1), newRoad); // The newRoad will be at indexTile1
+            tile2->edges.insert(tile1->edges.begin() + static_cast<std::vector<Structure*>::difference_type>(indexTile2), newRoad);
         } else {
             cerr << "Error: The tiles do not share an edge." << endl;
         }
@@ -384,7 +384,7 @@ using namespace std;
         Structure* newSettlement = &(this->settlements.back()); // Get a pointer to the new settlement
 
         // Checking the index of the new settlement in tile1, tile2 and tile3
-        size_t indexTile1 = -1, indexTile2 = -1, indexTile3 = -1;
+        size_t indexTile1 = (size_t)-1, indexTile2 = (size_t)-1, indexTile3 = (size_t)-1;
         for(size_t i=0; i<6; i++){
             if(tile1->neighbors[i]==tile2 && tile1->neighbors[i]==tile3){ // tile1
                 indexTile1 = i;
@@ -397,10 +397,10 @@ using namespace std;
             }
         }
 
-        if (indexTile1!=-1 && indexTile2!=-1 && indexTile3!=-1) {
-            tile1->vertices.insert(tile1->vertices.begin() + indexTile1, newSettlement); // The newSettlement will be at indexTile1
-            tile2->vertices.insert(tile1->vertices.begin() + indexTile2, newSettlement);
-            tile3->vertices.insert(tile1->vertices.begin() + indexTile3, newSettlement);
+        if (indexTile1!=(size_t)-1 && indexTile2!=(size_t)-1 && indexTile3!=(size_t)-1) {
+            tile1->vertices.insert(tile1->vertices.begin() + static_cast<std::vector<Structure*>::difference_type>(indexTile1), newSettlement); // The newSettlement will be at indexTile1
+            tile2->vertices.insert(tile1->vertices.begin() + static_cast<std::vector<Structure*>::difference_type>(indexTile2), newSettlement);
+            tile3->vertices.insert(tile1->vertices.begin() + static_cast<std::vector<Structure*>::difference_type>(indexTile3), newSettlement);
         } else {
             cerr << "Error: The tiles do not share an vertex." << endl;
         }
@@ -411,7 +411,7 @@ using namespace std;
         Structure* newCity = &(this->cities.back()); // Get a pointer to the new City
 
         // Checking the index of the new City in tile1, tile2 and tile3
-        size_t indexTile1 = -1, indexTile2 = -1, indexTile3 = -1;
+        size_t indexTile1 = (size_t)-1, indexTile2 = (size_t)-1, indexTile3 = (size_t)-1;
         for(size_t i=0; i<6; i++){
             if(tile1->neighbors[i]==tile2 && tile1->neighbors[i]==tile3){ // tile1
                 indexTile1 = i;
@@ -431,9 +431,9 @@ using namespace std;
                 (tile2->vertices[indexTile2] != nullptr)&&
                 (tile3->vertices[indexTile2] != nullptr)) {
 
-                tile1->vertices.insert(tile1->vertices.begin() + indexTile1, newCity); // The newCity will be at indexTile1
-                tile2->vertices.insert(tile1->vertices.begin() + indexTile2, newCity);
-                tile3->vertices.insert(tile1->vertices.begin() + indexTile3, newCity);
+                tile1->vertices.insert(tile1->vertices.begin() + static_cast<std::vector<Structure*>::difference_type>(indexTile1), newCity); // The newCity will be at indexTile1
+                tile2->vertices.insert(tile1->vertices.begin() + static_cast<std::vector<Structure*>::difference_type>(indexTile2), newCity);
+                tile3->vertices.insert(tile1->vertices.begin() + static_cast<std::vector<Structure*>::difference_type>(indexTile3), newCity);
             }
         } else {
             cerr << "Error: The tiles do not share an vertex." << endl;
@@ -463,14 +463,14 @@ using namespace std;
 
         for(size_t i=0; i<this->returnRes.size(); i++){ // str1 going to p2
             if(this->returnRes[i] == R1){
-                this->returnRes.erase(this->returnRes.begin() + i); // Remove it from p1
+                this->returnRes.erase(this->returnRes.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i)); // Remove it from p1
                 p2.returnRes.push_back(R1); // Give it to p2
             }
         }
 
         for(size_t i=0; i<p2.returnRes.size(); i++){ // str2 going to p1
             if(p2.returnRes[i] == R2){
-                p2.returnRes.erase(p2.returnRes.begin() + i); // Remove it from p2
+                p2.returnRes.erase(p2.returnRes.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i)); // Remove it from p2
                 this->returnRes.push_back(R2); // Give it to p1
             }
         }
@@ -505,15 +505,15 @@ using namespace std;
 
             for(size_t i=0; i<this->returnRes.size(); i++){ // Payment
                 if((to_string(this->returnRes[i]) == "Ore") && (checkOre=true)){
-                    this->returnRes.erase(this->returnRes.begin() + i);
+                    this->returnRes.erase(this->returnRes.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
                     checkOre = false; // To verify a one-time payment
                 }
                 else if((to_string(this->returnRes[i]) == "Grain") && (checkGrain=true)){
-                    this->returnRes.erase(this->returnRes.begin() + i);
+                    this->returnRes.erase(this->returnRes.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
                     checkGrain = false;
                 }
                 else if((to_string(this->returnRes[i]) == "Wool") && (checkWool==true)){
-                    this->returnRes.erase(this->returnRes.begin() + i);
+                    this->returnRes.erase(this->returnRes.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
                     checkWool = false;
                 }
             }
