@@ -5,7 +5,7 @@ CXX = clang++
 CXXFLAGS = -std=c++11 -Werror -Wsign-conversion -g
 VALGRIND_FLAGS = -v --leak-check=full --show-leak-kinds=all --error-exitcode=99
 
-SOURCES = board.cpp catan.cpp DevelopmentCard.cpp player.cpp Structure.cpp Tile.cpp TestCounter.cpp Test.cpp
+SOURCES = board.cpp catan.cpp DevelopmentCard.cpp Structure.cpp Tile.cpp player.cpp TestCounter.cpp Test.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 
 run: demo test
