@@ -9,8 +9,10 @@
 #include <string>
 #include "Tile.cpp"
 #include "player.hpp"
+#include "catan.cpp"
 using namespace std;
 class Player; // Forward declaration of Player
+class Catan;
 
 /*
 1   Monopoly -> can take one resourceType from all the other players
@@ -52,7 +54,7 @@ class DevelopmentCard { // Abstract class
 public:
     virtual CardType getType() const;
     virtual string getCardName() const;
-    virtual void useCard(Catan game, Player& p);
+    virtual void useCard(Catan* game, Player& p);
     virtual ~DevelopmentCard() = default;
 };
 
@@ -63,7 +65,7 @@ public:
 
     string getCardName() const override;
 
-    void useCard(Catan game, Player& p) override;
+    void useCard(Catan* game, Player& p) override;
 };
 
 // -----------------------------BuildingRoadsCard-----------------------------
@@ -71,7 +73,7 @@ class BuildingRoadsCard : public DevelopmentCard {
 public:
     CardType getType() const override;
     string getCardName() const override;
-    void useCard(Catan game, Player& p) override;
+    void useCard(Catan* game, Player& p) override;
 };
 
 // -----------------------------YearOfAbundanceCard-----------------------------
@@ -79,7 +81,7 @@ class YearOfAbundanceCard : public DevelopmentCard {
 public:
     CardType getType() const override;
     string getCardName() const override;
-    void useCard(Catan game, Player& p) override;
+    void useCard(Catan* game, Player& p) override;
 };
 
 // -----------------------------KnightCard-----------------------------
@@ -87,7 +89,7 @@ class KnightCard : public DevelopmentCard {
 public:
     CardType getType() const override;
     string getCardName() const override;
-    void useCard(Catan game, Player& p) override;
+    void useCard(Catan* game, Player& p) override;
 };
 
 // -----------------------------VictoryPointCard-----------------------------
@@ -95,7 +97,7 @@ class VictoryPointCard : public DevelopmentCard {
 public:
     CardType getType() const override;
     string getCardName() const override;
-    void useCard(Catan game, Player& p) override;
+    void useCard(Catan* game, Player& p) override;
 };
 
 
