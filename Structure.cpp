@@ -19,7 +19,10 @@ public:
 
     Structure(string n, vector<ReturnRes> r) : name(n), resources(r) {}
 
-    virtual ~Structure(); // distructor
+    ~Structure(){ // distructor
+        this->name = "";
+        this->resources.clear();
+    }
     
 };
 
