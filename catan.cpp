@@ -11,8 +11,6 @@
 #include "board.hpp"
 using namespace std;
 
-class Player;
-
     class Catan {
     private:
         static Catan* instance; // Declare as static member
@@ -80,8 +78,5 @@ class Player;
             cout << " The winner is:" << getWinner().name << endl;
         }
     };
-
-    Catan* Catan::instance = nullptr;
-
 
 #endif // CATAN_HPP
