@@ -33,8 +33,9 @@ enum class CardType {
 
 class DevelopmentCard { // Abstract class
 public:
-    virtual CardType getType() const;
-    virtual string getCardName() const;
+    virtual ~DevelopmentCard() = default; // Virtual destructor
+    virtual CardType getType() const = 0;
+    virtual string getCardName() const = 0;
 
     string toString(CardType type) {
         switch(type) {
@@ -58,7 +59,7 @@ public:
 // -----------------------------MonopolyCard-----------------------------
 class MonopolyCard : public DevelopmentCard {
 public:
-    MonopolyCard();
+    MonopolyCard() = default;
     CardType getType() const override;
     string getCardName() const override;
 };
@@ -66,6 +67,7 @@ public:
 // -----------------------------BuildingRoadsCard-----------------------------
 class BuildingRoadsCard : public DevelopmentCard {
 public:
+    BuildingRoadsCard() = default;
     CardType getType() const override;
     string getCardName() const override;
 };
@@ -73,6 +75,7 @@ public:
 // -----------------------------YearOfAbundanceCard-----------------------------
 class YearOfAbundanceCard : public DevelopmentCard {
 public:
+    YearOfAbundanceCard() = default;
     CardType getType() const override;
     string getCardName() const override;
 };
@@ -80,6 +83,7 @@ public:
 // -----------------------------KnightCard-----------------------------
 class KnightCard : public DevelopmentCard {
 public:
+    KnightCard() = default;
     CardType getType() const override;
     string getCardName() const override;
 };
@@ -87,6 +91,7 @@ public:
 // -----------------------------VictoryPointCard-----------------------------
 class VictoryPointCard : public DevelopmentCard {
 public:
+    VictoryPointCard() = default;
     CardType getType() const override;
     string getCardName() const override;
 };
