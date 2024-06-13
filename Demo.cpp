@@ -9,7 +9,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <vector>
-#include "catan.cpp"
+#include "catan.hpp"
 using namespace std;
 
 
@@ -18,8 +18,7 @@ int main()
     Player p1("Amit");
     Player p2("Yossi");
     Player p3("Dana");
-    Catan* catanGame;
-    catanGame->getInstance(p1, p2, p3);
+    Catan* catanGame = Catan::getInstance(p1, p2, p3);
     // Starting of the game. Every player places two settlements and two roads.
     catanGame->ChooseStartingPlayer();   // should print the name of the starting player, assume it is Amit.
     Board board = catanGame->getBoard(); // get the board of the game.
