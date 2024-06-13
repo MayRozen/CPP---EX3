@@ -9,10 +9,8 @@
 #include <string>
 #include "Tile.cpp"
 #include "player.hpp"
-#include "catan.cpp"
 using namespace std;
 class Player; // Forward declaration of Player
-class Catan;
 
 /*
 1   Monopoly -> can take one resourceType from all the other players
@@ -33,39 +31,35 @@ enum class CardType {
     VictoryPoint
 };
 
-string toString(CardType type) {
-    switch(type) {
-        case CardType::Monopoly:
-            return "Monopoly";
-        case CardType::BuildingRoads:
-            return "Building Roads";
-        case CardType::YearOfAbundance:
-            return "Year of Abundance";
-        case CardType::Knight:
-            return "Knight";
-        case CardType::VictoryPoint:
-            return "Victory Point";
-        default:
-            return "Unknown";
-    }
-}
-
 class DevelopmentCard { // Abstract class
 public:
     virtual CardType getType() const;
     virtual string getCardName() const;
-    virtual void useCard(Catan* game, Player& p);
-    virtual ~DevelopmentCard() = default;
+
+    string toString(CardType type) {
+        switch(type) {
+            case CardType::Monopoly:
+                return "Monopoly";
+            case CardType::BuildingRoads:
+                return "Building Roads";
+            case CardType::YearOfAbundance:
+                return "Year of Abundance";
+            case CardType::Knight:
+                return "Knight";
+            case CardType::VictoryPoint:
+                return "Victory Point";
+            default:
+                return "Unknown";
+        }
+    }
+
 };
 
 // -----------------------------MonopolyCard-----------------------------
 class MonopolyCard : public DevelopmentCard {
 public:
     CardType getType() const override;
-
     string getCardName() const override;
-
-    void useCard(Catan* game, Player& p) override;
 };
 
 // -----------------------------BuildingRoadsCard-----------------------------
@@ -73,7 +67,6 @@ class BuildingRoadsCard : public DevelopmentCard {
 public:
     CardType getType() const override;
     string getCardName() const override;
-    void useCard(Catan* game, Player& p) override;
 };
 
 // -----------------------------YearOfAbundanceCard-----------------------------
@@ -81,7 +74,6 @@ class YearOfAbundanceCard : public DevelopmentCard {
 public:
     CardType getType() const override;
     string getCardName() const override;
-    void useCard(Catan* game, Player& p) override;
 };
 
 // -----------------------------KnightCard-----------------------------
@@ -89,7 +81,6 @@ class KnightCard : public DevelopmentCard {
 public:
     CardType getType() const override;
     string getCardName() const override;
-    void useCard(Catan* game, Player& p) override;
 };
 
 // -----------------------------VictoryPointCard-----------------------------
@@ -97,7 +88,6 @@ class VictoryPointCard : public DevelopmentCard {
 public:
     CardType getType() const override;
     string getCardName() const override;
-    void useCard(Catan* game, Player& p) override;
 };
 
 
