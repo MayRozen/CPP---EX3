@@ -7,13 +7,14 @@
 #include <vector>
 #include <cstdlib> // for rand() and srand()
 #include <ctime> // for time()
+#include <memory>
 #include "player.hpp"
 #include "catan.hpp"
 using namespace std;
 
-    size_t findIndex(vector<DevelopmentCard> arr, CardType D){
+    size_t findIndex(vector<DevelopmentCard*>& arr, CardType D){
         for(size_t i=0; i<arr.size(); i++){
-            if(arr[i].getCardName() == arr[i].toString(D)){
+            if(arr[i]->getCardName() == arr[i]->toString(D)){
                 return i;
             }
         }
@@ -66,7 +67,7 @@ using namespace std;
             }
         }
 
-        if(BrickSum>=1 && LumberSum>=1){
+        if(BrickSum>=1 && LumberSum>=1){ // We can build a new road
             this->settlements.push_back(road()); // We can add a road due to it is heir from settlements
             int checkB = 0, checkL = 0;
             for(size_t i=0; i<r.size(); i++){
@@ -202,7 +203,6 @@ using namespace std;
     // void placeSettelemnt(places, placesNum, board);
 
     void Player::placeRoad(Tile* tile1, Tile* tile2){
-        addRoad(); // Checking the required resources and add a new road
         Structure* newRoad = &(this->roads.back()); // Get a pointer to the new road
 
         // Checking the index of the new road in tile1 and tile2
@@ -216,12 +216,14 @@ using namespace std;
             }
         }
 
-        if (indexTile1!=-1 && indexTile2!=-1) {
+        if (indexTile1!=-1 && indexTile2!=-1) { // So the tiles have a share edge
             tile1->edges.insert(tile1->edges.begin() + static_cast<std::vector<Structure*>::difference_type>(indexTile1), newRoad); // The newRoad will be at indexTile1
             tile2->edges.insert(tile1->edges.begin() + static_cast<std::vector<Structure*>::difference_type>(indexTile2), newRoad);
         } else {
             cerr << "Error: The tiles do not share an edge." << endl;
         }
+
+        addRoad(); // Checking the required resources and add a new road
     }
 
     void Player::placeRoad(vector<string> places, vector<int> placesNum) { // p1 continues to build a road.
@@ -349,7 +351,8 @@ using namespace std;
             ((tile3->edges[bigger] != NULL) && (tile3->edges[bigger+1] != NULL))){
                 return true;
             }
-        
+            
+        cerr << "Error: The tiles do not share an edge." << endl;
         return false;
     }
 
@@ -425,21 +428,21 @@ using namespace std;
         // Checking the index of the new settlement in tile1, tile2 and tile3
         size_t indexTile1 = (size_t)-1, indexTile2 = (size_t)-1, indexTile3 = (size_t)-1;
         for(size_t i=0; i<6; i++){
-            if(tile1->neighbors[i]==tile2 && tile1->neighbors[i]==tile3){ // tile1
+            if(tile1->neighbors[i] != tile2 && tile1->neighbors[i] != tile3) { // tile1
                 indexTile1 = i;
             }
-            if(tile2->neighbors[i]==tile1 && tile2->neighbors[i]==tile3){ // tile2
+            if(tile2->neighbors[i] != tile1 && tile2->neighbors[i] != tile3) { // tile2
                 indexTile2 = i;
             }
-            if(tile3->neighbors[i]==tile1 && tile3->neighbors[i]==tile2){ // tile3
+            if(tile3->neighbors[i] != tile1 && tile3->neighbors[i] != tile2) { // tile3
                 indexTile3 = i;
             }
         }
 
         if (indexTile1!=(size_t)-1 && indexTile2!=(size_t)-1 && indexTile3!=(size_t)-1) {
-            tile1->vertices.insert(tile1->vertices.begin() + static_cast<std::vector<Structure*>::difference_type>(indexTile1), newSettlement); // The newSettlement will be at indexTile1
-            tile2->vertices.insert(tile1->vertices.begin() + static_cast<std::vector<Structure*>::difference_type>(indexTile2), newSettlement);
-            tile3->vertices.insert(tile1->vertices.begin() + static_cast<std::vector<Structure*>::difference_type>(indexTile3), newSettlement);
+            tile1->vertices.insert(tile1->vertices.begin() + static_cast<vector<Structure*>::difference_type>(indexTile1), newSettlement);
+            tile2->vertices.insert(tile2->vertices.begin() + static_cast<vector<Structure*>::difference_type>(indexTile2), newSettlement);
+            tile3->vertices.insert(tile3->vertices.begin() + static_cast<vector<Structure*>::difference_type>(indexTile3), newSettlement);
         } else {
             cerr << "Error: The tiles do not share an vertex." << endl;
         }
@@ -525,7 +528,7 @@ using namespace std;
 
     void Player::buyDevelopmentCard(){
         bool checkOre=false, checkGrain=false, checkWool=false;
-        VictoryPointCard card;
+        VictoryPointCard* card;
         // First, let's check if p2 has the resources needed for buing a development card
         for(size_t i=0; i<this->returnRes.size(); i++){
             if(Player::Resto_string(this->returnRes[i]) == "Ore"){
@@ -557,7 +560,7 @@ using namespace std;
                 }
             }
 
-            cout << this->name << " buy a new "<< card.getCardName() << "card." << endl;
+            cout << this->name << " buy a new "<< card->getCardName() << "card." << endl;
         }
     }
 
