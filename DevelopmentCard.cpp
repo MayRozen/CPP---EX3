@@ -3,7 +3,7 @@
 */
 
 #include "DevelopmentCard.hpp"
-#include "catan.cpp"
+#include "catan.hpp"
 using namespace std;
 
 // -----------------------------MonopolyCard-----------------------------
