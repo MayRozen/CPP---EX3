@@ -22,43 +22,72 @@ int main()
     // Starting of the game. Every player places two settlements and two roads.
     catanGame->ChooseStartingPlayer();   // should print the name of the starting player, assume it is Amit.
     Board board = catanGame->getBoard(); // get the board of the game.
-    vector<string> places = {"Forest", "Hills"};
-    vector<int> placesNum = {3, 10};
-    cout<< "check4"<<endl;
-    // p1.placeSettelemnts(places, placesNum);
-    
-    p1.placeRoad(places, placesNum);
-    cout<< "check5"<<endl;
-    places = {"Agricultural Land", "Desert"};
-    placesNum = {3, 4};
-    p1.placeSettelemnts(places, placesNum);
-    p1.placeRoad(places, placesNum); // p1 chooses Forest, hills, Agricultural Land, Desert with numbers 5, 6, 3, 4.
 
-    places = {"Mountains", "Pasture Land"};
-    placesNum = {4, 9};
-    p2.placeSettelemnts(places, placesNum);
-    p2.placeRoad(places, placesNum);
+    // -----------------------------p1-----------------------------
+    vector<string> placesSet = {"Forest", "Hills","Mountains"};
+    vector<int> placesSetNum = {3, 10, 8};
+    p1.placeSettelemnts(placesSet, placesSetNum);
+    p1.returnRes.push_back(ReturnRes::Brick);
+    p1.returnRes.push_back(ReturnRes::Lumber);
+    p1.returnRes.push_back(ReturnRes::Ore);
+
+    cout<< "check5"<<endl;
+    
+    vector<string> placesRoad = {"Forest", "Hills"};
+    vector<int> placesRoadNum = {3, 10};
+    p1.placeRoad(placesRoad, placesRoadNum);
+
+    placesSet = {"Fields", "Desert", "Forest"};
+    placesSetNum = {4, -1, 3};
+    p1.placeSettelemnts(placesSet, placesSetNum);
+    p1.returnRes.push_back(ReturnRes::Grain);
+    p1.returnRes.push_back(ReturnRes::Lumber);
+
+    placesRoad = {"Fields", "Forest"};
+    placesRoadNum = {4, 3};
+    p1.placeRoad(placesRoad, placesRoadNum);
+
+    // -----------------------------p2-----------------------------
+    placesSet = {"Mountains", "Pasture", "Hills"};
+    placesSetNum = {10, 2, 6};
+    p2.placeSettelemnts(placesSet, placesSetNum);
+    p2.returnRes.push_back(ReturnRes::Wool);
+    p2.returnRes.push_back(ReturnRes::Brick);
+    p2.returnRes.push_back(ReturnRes::Ore);
+
+    placesRoad = {"Mountains", "Pasture"};
+    placesRoadNum = {10, 2};
+    p2.placeRoad(placesRoad, placesRoadNum);
+
     try
     {
-        p3.placeSettelemnts(places, placesNum); // p3 tries to place a settlement in the same location as p2.
+        p3.placeSettelemnts(placesSet, placesSetNum); // p3 tries to place a settlement in the same location as p2.
     }
     catch (const std::exception &e)
     {
         cout << e.what() << endl;
     }
-    places = {"Forest", "Pasture Land"};
-    placesNum = {5, 9};
-    p2.placeSettelemnts(places, placesNum);
-    p2.placeRoad(places, placesNum); // p2 chooses Mountains, Pasture Land, and Forest with numbers 4, 9, 5.
 
-    places = {"Mountains", "Pasture Land"};
-    placesNum = {3, 8};
-    p3.placeSettelemnts(places, placesNum);
-    p3.placeRoad(places, placesNum);
-    places = {"Agricultural Land", "Pasture Land"};
-    placesNum = {3, 9};
-    p3.placeSettelemnts(places, placesNum);
-    p3.placeRoad(places, placesNum); // p3 chooses Mountains, Pasture Land, Agricultural Land, Pasture Land with numbers 3, 8, 3, 9.
+    placesSet = {"Forest", "Forest", "Fields"};
+    placesSetNum = {8, 11, 9};
+    p2.placeSettelemnts(placesSet, placesSetNum);
+    p2.returnRes.push_back(ReturnRes::Brick);
+    p2.returnRes.push_back(ReturnRes::Brick);
+    p2.returnRes.push_back(ReturnRes::Grain);
+
+    placesRoad = {"Forest", "Forest"};
+    placesRoadNum = {8, 11};
+    p2.placeRoad(placesRoad, placesRoadNum); // p2 chooses Mountains, Pasture Land, and Forest with numbers 4, 9, 5.
+
+    // -----------------------------p3-----------------------------
+    // places = {"Mountains", "Pasture Land"};
+    // placesNum = {3, 8};
+    // p3.placeSettelemnts(places, placesNum);
+    // p3.placeRoad(places, placesNum);
+    // places = {"Agricultural Land", "Pasture Land"};
+    // placesNum = {3, 9};
+    // p3.placeSettelemnts(places, placesNum);
+    // p3.placeRoad(places, placesNum); // p3 chooses Mountains, Pasture Land, Agricultural Land, Pasture Land with numbers 3, 8, 3, 9.
 
     // p1 has wood,bricks, and wheat, p2 has wood, ore, and wool, p3 has ore, wool, wheat.
     p1.rollDice();                                    // Lets say it's print 4. Then, p2 gets ore from the mountations.
