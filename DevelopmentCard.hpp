@@ -58,6 +58,7 @@ public:
 // -----------------------------MonopolyCard-----------------------------
 class MonopolyCard : public DevelopmentCard {
 public:
+    MonopolyCard();
     CardType getType() const override;
     string getCardName() const override;
 };
