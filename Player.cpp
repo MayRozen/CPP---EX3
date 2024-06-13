@@ -8,7 +8,7 @@
 #include <cstdlib> // for rand() and srand()
 #include <ctime> // for time()
 #include "player.hpp"
-#include "catan.cpp"
+#include "catan.hpp"
 using namespace std;
 
     size_t findIndex(vector<DevelopmentCard> arr, CardType D){
@@ -31,7 +31,7 @@ using namespace std;
         }
     }
 
-    ReturnRes fromStringToRes(string st1){
+    ReturnRes Player::fromStringToRes(string st1){
         ReturnRes R1;
         // ReturnRes {Lumber, Brick, Wool, Grain, Ore};
         if(st1=="Lumber"){
