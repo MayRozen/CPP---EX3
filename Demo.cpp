@@ -23,9 +23,12 @@ int main()
     catanGame->ChooseStartingPlayer();   // should print the name of the starting player, assume it is Amit.
     Board board = catanGame->getBoard(); // get the board of the game.
     vector<string> places = {"Forest", "Hills"};
-    vector<int> placesNum = {3, 5};
-    p1.placeSettelemnts(places, placesNum);
+    vector<int> placesNum = {3, 10};
+    cout<< "check4"<<endl;
+    // p1.placeSettelemnts(places, placesNum);
+    
     p1.placeRoad(places, placesNum);
+    cout<< "check5"<<endl;
     places = {"Agricultural Land", "Desert"};
     placesNum = {3, 4};
     p1.placeSettelemnts(places, placesNum);
