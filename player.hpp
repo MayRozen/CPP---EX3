@@ -12,6 +12,7 @@
 
 using namespace std;
 class Catan;
+class DevelopmentCard;
 
 class Player {
 public:
@@ -37,6 +38,9 @@ public:
         this->sumOfKnights = 0;
         this->turn = false;
     } 
+
+    string Resto_string(ReturnRes res);
+    ReturnRes fromStringToRes(string st1);
 
 // -----------------------------Structure-----------------------------
     void addRoad();
@@ -64,12 +68,16 @@ public:
     
     void trade(Player p2, string str1, string str2, int numOfStr1, int numOfStr2); // p1 trades 1 wood for 1 brick with p2.
     
-    bool endTurn();
+    void endTurn();
     
     void buyDevelopmentCard(); // p2 buys a development card. Lets say it is a bonus points card.
+    void useMonopolyCard(Catan* game, Player& p); // check all the players' ReturnRes and update them
+    void useBuildingRoadsCard(Player& p);
+    void useYearOfAbundanceCard(Player& p);
+    void useKnightCard(Catan* game, Player& p);
+    void useVictoryPointCard(Player& p);
     
-    void printPoints(); // p1 has 2 points because it has two settelments.
-    
+    void printPoints(); // p1 has 2 points because it has two settelments.  
 };
 
 #endif // DEVELOPMENTCARD_HPP
