@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <memory> // for std::unique_ptr
 #include "DevelopmentCard.hpp"
 
 using namespace std;
@@ -21,7 +22,7 @@ public:
     vector<Structure> roads;
     vector<Structure> settlements;
     vector<Structure> cities;
-    vector<DevelopmentCard> DevelopmentCards;
+    vector<DevelopmentCard*> DevelopmentCards;
     int sumOfKnights;
     int sumPoints;
     bool turn = true; // When it is the player's turn -> true
