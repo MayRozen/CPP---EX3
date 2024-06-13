@@ -11,35 +11,6 @@
 
 enum class ResourceType { Hills, Forest, Mountains, Fields, Pasture, Desert, Sea };
 
-std::string to_string(ReturnRes res) {
-    switch (res) {
-        case ReturnRes::Lumber: return "Lumber";
-        case ReturnRes::Brick: return "Brick";
-        case ReturnRes::Wool: return "Wool";
-        case ReturnRes::Grain: return "Grain";
-        case ReturnRes::Ore: return "Ore";
-        default: return "Unknown";
-    }
-}
-
-ReturnRes fromStringToRes(string st1){
-    ReturnRes R1;
-    // ReturnRes {Lumber, Brick, Wool, Grain, Ore};
-    if(st1=="Lumber"){
-        R1 = ReturnRes::Lumber;
-    } else if(st1=="Brick"){
-        R1 = ReturnRes::Brick;
-    } else if(st1=="Wool"){
-        R1 = ReturnRes::Wool;
-    } else if(st1=="Grain"){
-        R1 = ReturnRes::Grain;
-    } else if(st1=="Ore"){
-        R1 = ReturnRes::Ore;
-    }
-
-    return R1;
-}
-
 /*
 Hills - produce Brick
 Forest - produce Lumber
