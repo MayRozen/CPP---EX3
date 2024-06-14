@@ -67,7 +67,7 @@ public:
 // -----------------------------Game Logic-----------------------------
     void rollDice();
     
-    void trade(Player p2, string str1, string str2, int numOfStr1, int numOfStr2); // p1 trades 1 wood for 1 brick with p2.
+    void trade(Player& p2, string str1, string str2, int numOfStr1, int numOfStr2); // p1 trades 1 wood for 1 brick with p2.
     
     void endTurn();
     
