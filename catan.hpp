@@ -18,31 +18,19 @@ using namespace std;
         Board *gameBoard;
         Player *winner; 
     public:
+
+        void initializationReturnRes(Player& p);
+        
         // Private constructor to prevent instantiation
         Catan(Player& p1, Player& p2, Player& p3) { // ReturnRes {Lumber, Brick, Wool, Grain, Ore};
-            p1.returnRes.push_back(ReturnRes::Brick); // For road
-            p1.returnRes.push_back(ReturnRes::Lumber);
-            p1.returnRes.push_back(ReturnRes::Brick); // For settlement
-            p1.returnRes.push_back(ReturnRes::Lumber);
-            p1.returnRes.push_back(ReturnRes::Wool);
-            p1.returnRes.push_back(ReturnRes::Grain);
-            players.push_back(p1);
+            initializationReturnRes(p1);
+            this->players.push_back(p1);
 
-            p2.returnRes.push_back(ReturnRes::Brick); // For road
-            p2.returnRes.push_back(ReturnRes::Lumber);
-            p2.returnRes.push_back(ReturnRes::Brick); // For settlement
-            p2.returnRes.push_back(ReturnRes::Lumber);
-            p2.returnRes.push_back(ReturnRes::Wool);
-            p2.returnRes.push_back(ReturnRes::Grain);
-            players.push_back(p2);
+            initializationReturnRes(p2);
+            this->players.push_back(p2);
 
-            p3.returnRes.push_back(ReturnRes::Brick); // For road
-            p3.returnRes.push_back(ReturnRes::Lumber);
-            p3.returnRes.push_back(ReturnRes::Brick); // For settlement
-            p3.returnRes.push_back(ReturnRes::Lumber);
-            p3.returnRes.push_back(ReturnRes::Wool);
-            p3.returnRes.push_back(ReturnRes::Grain);
-            players.push_back(p3);
+            initializationReturnRes(p3);
+            this->players.push_back(p3);
             
             gameBoard = new Board(); // Assume Board has a default constructor
         }
