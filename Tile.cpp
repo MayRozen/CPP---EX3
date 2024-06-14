@@ -28,7 +28,6 @@ public:
     vector<Structure*> edges; // for roades
     vector<Tile*> neighbors; // Neighboring tiles
 
-
     Tile(ResourceType resource, int num) : tileResource(resource), number(num),vertices(6) ,edges(6), neighbors(6) {} // constructor
 
     ~Tile(){
