@@ -54,14 +54,13 @@ using namespace std;
     void Player::addRoad() {  // Requires: Brick & Lumber
         int BrickSum = 0, LumberSum = 0;
         int indexBrick = 0, indexLumber = 0;
-        vector<ReturnRes> r = this->returnRes;
 
-        for(size_t i=0; i<r.size(); i++){
-            if(r[i]==ReturnRes::Brick){
+        for(size_t i=0; i<this->returnRes.size(); i++){
+            if(this->returnRes[i]==ReturnRes::Brick){
                 BrickSum++;
                 indexBrick = i;
             }
-            if(r[i]==ReturnRes::Lumber){
+            if(this->returnRes[i]==ReturnRes::Lumber){
                 LumberSum++;
                 indexLumber = i;
             }
@@ -70,13 +69,13 @@ using namespace std;
         if(BrickSum>=1 && LumberSum>=1){ // We can build a new road
             this->settlements.push_back(road()); // We can add a road due to it is heir from settlements
             int checkB = 0, checkL = 0;
-            for(size_t i=0; i<r.size(); i++){
-                if(checkB!=1 && r[i]==ReturnRes::Brick){
-                    this->returnRes.erase(r.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
+            for(size_t i=0; i<this->returnRes.size(); i++){
+                if(checkB!=1 && this->returnRes[i]==ReturnRes::Brick){
+                    this->returnRes.erase(this->returnRes.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
                     checkB = 1;
                 }
-                if(checkL!=1 && r[i]==ReturnRes::Lumber){
-                    this->returnRes.erase(r.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
+                if(checkL!=1 && this->returnRes[i]==ReturnRes::Lumber){
+                    this->returnRes.erase(this->returnRes.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
                     checkL = 1;
                 }
                 if(checkB==1 && checkL==1){
@@ -92,22 +91,21 @@ using namespace std;
     void Player::addSettlement() { // Requires: Brick, Lumber, Wool, & Grain
         int BrickSum = 0, LumberSum = 0, WoolSum = 0, GrainSum = 0;
         int indexBrick = 0, indexLumber = 0, indexWool = 0, indexGrain = 0;
-        vector<ReturnRes> r = this->returnRes;
 
-        for(size_t i=0; i<r.size(); i++){
-            if(r[i]==ReturnRes::Brick){
+        for(size_t i=0; i<this->returnRes.size(); i++){
+            if(this->returnRes[i]==ReturnRes::Brick){
                 BrickSum++;
                 indexBrick = i;
             }
-            if(r[i]==ReturnRes::Lumber){
+            if(this->returnRes[i]==ReturnRes::Lumber){
                 LumberSum++;
                 indexLumber = i;
             }
-            if(r[i]==ReturnRes::Wool){
+            if(this->returnRes[i]==ReturnRes::Wool){
                 WoolSum++;
                 indexWool = i;
             }
-            if(r[i]==ReturnRes::Grain){
+            if(this->returnRes[i]==ReturnRes::Grain){
                 GrainSum++;
                 indexGrain = i;
             }
@@ -116,21 +114,21 @@ using namespace std;
         if(BrickSum>=1 && LumberSum>=1 && WoolSum>=1 && GrainSum>=1 ){
             this->settlements.push_back(settlement()); // We can add a settlement due to it is heir from settlements
             int checkB = 0, checkL = 0, checkW = 0, checkG = 0;
-            for(size_t i=0; i<r.size(); i++){
-                if(r[i]==ReturnRes::Brick){
-                    this->returnRes.erase(r.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
+            for(size_t i=0; i<this->returnRes.size(); i++){
+                if(this->returnRes[i]==ReturnRes::Brick){
+                    this->returnRes.erase(this->returnRes.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
                     checkB = 1;
                 }
-                if(r[i]==ReturnRes::Lumber){
-                    this->returnRes.erase(r.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
+                if(this->returnRes[i]==ReturnRes::Lumber){
+                    this->returnRes.erase(this->returnRes.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
                     checkL = 1;
                 }
-                if(r[i]==ReturnRes::Wool){
-                    this->returnRes.erase(r.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
+                if(this->returnRes[i]==ReturnRes::Wool){
+                    this->returnRes.erase(this->returnRes.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
                     checkW = 1;
                 }
-                if(r[i]==ReturnRes::Grain){
-                    this->returnRes.erase(r.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
+                if(this->returnRes[i]==ReturnRes::Grain){
+                    this->returnRes.erase(this->returnRes.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
                     checkG = 1;
                 }
             if(checkB==1 && checkL==1 && checkW==1 && checkG ==1){
@@ -147,14 +145,13 @@ using namespace std;
     void Player::addCity() { // Requires: 3 Ore & 2 Grain
         int OreSum = 0, GrainSum = 0;
         int indexOre = 0, indexGrain = 0;
-        vector<ReturnRes> r = this->returnRes;
 
-        for(size_t i=0; i<r.size(); i++){
-            if(r[i]==ReturnRes::Brick){
+        for(size_t i=0; i<this->returnRes.size(); i++){
+            if(this->returnRes[i]==ReturnRes::Brick){
                 OreSum++;
                 indexOre = i;
             }
-            if(r[i]==ReturnRes::Lumber){
+            if(this->returnRes[i]==ReturnRes::Lumber){
                 GrainSum++;
                 indexGrain = i;
             }
@@ -163,13 +160,13 @@ using namespace std;
         if(OreSum>=3 && GrainSum>=2){
             this->settlements.push_back(city()); // We can add a city due to it is heir from settlements
             int checkO = 0, checkG = 0;
-            for(size_t i=0; i<r.size(); i++){
-                if(r[i]==ReturnRes::Brick){
-                    this->returnRes.erase(r.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
+            for(size_t i=0; i<this->returnRes.size(); i++){
+                if(this->returnRes[i]==ReturnRes::Brick){
+                    this->returnRes.erase(this->returnRes.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
                     checkO++;
                 }
-                if(r[i]==ReturnRes::Lumber){
-                    this->returnRes.erase(r.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
+                if(this->returnRes[i]==ReturnRes::Lumber){
+                    this->returnRes.erase(this->returnRes.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
                     checkG++;
                 }
             if(checkO==3 && checkG==2){
@@ -266,7 +263,6 @@ using namespace std;
 
         Tile* tile1 = new Tile(R1, num1);
         Tile* tile2 = new Tile(R2, num2);
-
         placeRoad(tile1, tile2);
     }
 
@@ -428,13 +424,13 @@ using namespace std;
         // Checking the index of the new settlement in tile1, tile2 and tile3
         size_t indexTile1 = (size_t)-1, indexTile2 = (size_t)-1, indexTile3 = (size_t)-1;
         for(size_t i=0; i<6; i++){
-            if(tile1->neighbors[i] != tile2 && tile1->neighbors[i] != tile3) { // tile1
+            if(tile1->neighbors[i] == tile2 || tile1->neighbors[i] == tile3) { // tile1
                 indexTile1 = i;
             }
-            if(tile2->neighbors[i] != tile1 && tile2->neighbors[i] != tile3) { // tile2
+            if(tile2->neighbors[i] == tile1 || tile2->neighbors[i] == tile3) { // tile2
                 indexTile2 = i;
             }
-            if(tile3->neighbors[i] != tile1 && tile3->neighbors[i] != tile2) { // tile3
+            if(tile3->neighbors[i] == tile1 || tile3->neighbors[i] == tile2) { // tile3
                 indexTile3 = i;
             }
         }
@@ -498,7 +494,7 @@ using namespace std;
     }
 
     // For example: p1 trades 1 wood (str1) for 1 brick (str2) with p2.
-    void Player::trade(Player p2, string str1, string str2, int numOfStr1, int numOfStr2){
+    void Player::trade(Player& p2, string str1, string str2, int numOfStr1, int numOfStr2){
         ReturnRes R1, R2;
         R1 = Player::fromStringToRes(str1);
         R2 = Player::fromStringToRes(str2);
@@ -517,7 +513,7 @@ using namespace std;
             }
         }
 
-        cout << "trade success: " << endl;
+        cout << "trade success: ";
         cout << this->name << " get " << numOfStr2 << " of " << str2;
         cout << " and " << p2.name << " get " << numOfStr1 << " of " << str1 << endl;
     }
