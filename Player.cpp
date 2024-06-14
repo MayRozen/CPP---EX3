@@ -479,13 +479,99 @@ using namespace std;
     }
 
 // -----------------------------Game Logic-----------------------------
-    void Player::rollDice() {
-        // Seed the random number generator with current time
-        srand(time(nullptr));
+    void Player::rollDiceReturnRes(Catan* game, int num){
+        ReturnRes R;
+        string tileName;
+        // Run over all the tiles in the board
+        for (size_t j=0; j<34; j++) {
+            for(size_t i=0; i<6; i++){ // The 6 vertices = settlement/city
+                for(size_t p=0; p<3; p++){ // All the players
+                    for(size_t s=0; s<game->getPlayers()[i].settlements.size(); s++){ // Run over all the settlements
+                        // Check if there is a settlement in this vertex and who owns the settlement
+                        if(game->getBoard().getTiles()[j]->vertices[i]->name    ==    game->getPlayers()[i].settlements[s].name){
+                            tileName = game->getBoard().getTiles()[j].getTileName();
+                            if(tileName=="Hills"){
+                                R = ReturnRes::Brick;
+                            } else if(tileName=="Forest"){
+                                R = ReturnRes::Lumber;
+                            } else if(tileName=="Mountains"){
+                                R = ReturnRes::Ore;
+                            } else if(tileName=="Fields"){
+                                R = ReturnRes::Grain;
+                            } else if(tileName=="Pasture"){
+                                R = ReturnRes::Wool;
+                            }
+                            game->getPlayers()[i].returnRes.push_back(R);
+                        }
+                    }
+                    for(size_t c=0; c<game->getPlayers()[i].cities.size(); c++){ // Run over all the cities
+                        if(game->getBoard().getTiles()[j]->vertices[i]->name    ==    game->getPlayers()[i].cities[c].name){
+                            ResourceTile rst = game->getBoard().getTiles()[j]->tileResource;
+                            tileName = game->getBoard().getTiles()[j].;
+                            if(tileName=="Hills"){
+                                R = ReturnRes::Brick;
+                            } else if(tileName=="Forest"){
+                                R = ReturnRes::Lumber;
+                            } else if(tileName=="Mountains"){
+                                R = ReturnRes::Ore;
+                            } else if(tileName=="Fields"){
+                                R = ReturnRes::Grain;
+                            } else if(tileName=="Pasture"){
+                                R = ReturnRes::Wool;
+                            }
+                            // If there is a city, the player get the returnRes twice
+                            game->getPlayers()[i].returnRes.push_back(R);
+                            game->getPlayers()[i].returnRes.push_back(R);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    void Player::rollDice(Catan* game) {
 
         // Generate two random numbers between 1 and 6 (inclusive) for two dice
         int dice1 = rand() % 6 + 1;
         int dice2 = rand() % 6 + 1;
+
+        switch (dice1 + dice2) {
+            case 2:
+                rollDiceReturnRes(game, {2});
+                break;
+            case 3:
+                rollDiceReturnRes(game, {3});
+                break;
+            case 4:
+                rollDiceReturnRes(game, {4});
+                break;
+            case 5:
+                rollDiceReturnRes(game, {5});
+                break;
+            case 6:
+                rollDiceReturnRes(game, {6});
+                break;
+            case 7:
+                rollDiceReturnRes(game, {7});
+                break;
+            case 8:
+                rollDiceReturnRes(game, {8});
+                break;
+            case 9:
+                rollDiceReturnRes(game, {9});
+                break;
+            case 10:
+                rollDiceReturnRes(game, {10});
+                break;
+            case 11:
+                rollDiceReturnRes(game, {11});
+                break;
+            case 12:
+                rollDiceReturnRes(game, {12});
+                break;
+            default:
+                cout << "Invalid dice roll!" << endl;
+        }
 
         // Output the results
         cout << "Dice 1: " << dice1 << endl;
