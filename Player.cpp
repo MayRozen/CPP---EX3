@@ -489,7 +489,7 @@ using namespace std;
                     for(size_t s=0; s<game->getPlayers()[i].settlements.size(); s++){ // Run over all the settlements
                         // Check if there is a settlement in this vertex and who owns the settlement
                         if(game->getBoard().getTiles()[j]->vertices[i]->name    ==    game->getPlayers()[i].settlements[s].name){
-                            tileName = game->getBoard().getTiles()[j].getTileName();
+                            tileName = game.getBoard().getTiles()[j].getTileName();
                             if(tileName=="Hills"){
                                 R = ReturnRes::Brick;
                             } else if(tileName=="Forest"){
@@ -506,8 +506,8 @@ using namespace std;
                     }
                     for(size_t c=0; c<game->getPlayers()[i].cities.size(); c++){ // Run over all the cities
                         if(game->getBoard().getTiles()[j]->vertices[i]->name    ==    game->getPlayers()[i].cities[c].name){
-                            ResourceTile rst = game->getBoard().getTiles()[j]->tileResource;
-                            tileName = game->getBoard().getTiles()[j].;
+                            ResourceTile rst = game.getBoard().getTiles()[j]->tileResource;
+                            tileName = game.getBoard().getTiles()[j].getTileName(rst);
                             if(tileName=="Hills"){
                                 R = ReturnRes::Brick;
                             } else if(tileName=="Forest"){
