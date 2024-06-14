@@ -11,6 +11,21 @@ using namespace std;
 
 Catan* Catan::instance = nullptr;
 
+void Catan::initializationReturnRes(Player& p){
+    p.returnRes.push_back(ReturnRes::Brick); // For road
+    p.returnRes.push_back(ReturnRes::Lumber);
+    p.returnRes.push_back(ReturnRes::Brick); // For settlement
+    p.returnRes.push_back(ReturnRes::Lumber);
+    p.returnRes.push_back(ReturnRes::Wool);
+    p.returnRes.push_back(ReturnRes::Grain);
+    p.returnRes.push_back(ReturnRes::Brick); // For road
+    p.returnRes.push_back(ReturnRes::Lumber);
+    p.returnRes.push_back(ReturnRes::Brick); // For settlement
+    p.returnRes.push_back(ReturnRes::Lumber);
+    p.returnRes.push_back(ReturnRes::Wool);
+    p.returnRes.push_back(ReturnRes::Grain);
+}
+
 void Catan::printPlayers() const {
     for (auto& player : players) {
         cout << player.name << endl;
