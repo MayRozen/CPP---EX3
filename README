@@ -6,6 +6,6 @@ ID: 212051007 Mail: mayrozen45@gmail.com
 
 אתחיל ואפרט מבניית הלוח.
 
-board.hpp board.cpp
+  board.hpp board.cpp
 
 את הלוח בניתי בעזרת מחלקת 
