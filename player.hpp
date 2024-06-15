@@ -24,7 +24,7 @@ public:
     vector<Structure> cities;
     vector<DevelopmentCard*> DevelopmentCards;
     int sumOfKnights;
-    int sumPoints;
+    int sumPoints = 0;
     bool turn = true; // When it is the player's turn -> true
 
     Player(string n) : name(n) {} // constructor
