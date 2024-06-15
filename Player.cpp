@@ -610,7 +610,7 @@ using namespace std;
 
     void Player::buyDevelopmentCard(){
         bool checkOre=false, checkGrain=false, checkWool=false;
-        VictoryPointCard* card;
+        VictoryPointCard* card = nullptr; // Initialize card pointer
         // First, let's check if p2 has the resources needed for buing a development card
         for(size_t i=0; i<this->returnRes.size(); i++){
             if(Player::Resto_string(this->returnRes[i]) == "Ore"){
@@ -624,20 +624,20 @@ using namespace std;
             }
         }
 
-        if(checkOre==true && checkGrain==true && checkWool==true){ // p2 can buy a development card
+        if (checkOre && checkGrain && checkWool) { // p2 can buy a development card
+            card = new VictoryPointCard(); // Allocate memory for the card
             this->DevelopmentCards.push_back(card); // Add the new card to p2
-
             for(size_t i=0; i<this->returnRes.size(); i++){ // Payment
                 if(((Player::Resto_string(this->returnRes[i])) == "Ore") && (checkOre=true)){
-                    this->returnRes.erase(this->returnRes.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
+                    this->returnRes.erase(this->returnRes.begin() + static_cast<vector<ReturnRes>::difference_type>(i));
                     checkOre = false; // To verify a one-time payment
                 }
                 else if(((Player::Resto_string(this->returnRes[i])) == "Grain") && (checkGrain=true)){
-                    this->returnRes.erase(this->returnRes.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
+                    this->returnRes.erase(this->returnRes.begin() + static_cast<vector<ReturnRes>::difference_type>(i));
                     checkGrain = false;
                 }
                 else if(((Player::Resto_string(this->returnRes[i])) == "Wool") && (checkWool==true)){
-                    this->returnRes.erase(this->returnRes.begin() + static_cast<std::vector<ReturnRes>::difference_type>(i));
+                    this->returnRes.erase(this->returnRes.begin() + static_cast<vector<ReturnRes>::difference_type>(i));
                     checkWool = false;
                 }
             }
