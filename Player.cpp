@@ -133,7 +133,7 @@ using namespace std;
                 }
             if(checkB==1 && checkL==1 && checkW==1 && checkG ==1){
                     cout<<"A New Settlement has been successfully added to: "<< this->name<<endl;
-                    this->sumPoints=this->sumPoints+1;
+                    this->sumPoints=(this->sumPoints) + 1;
                     return;
                 }
             }
@@ -171,7 +171,7 @@ using namespace std;
                 }
             if(checkO==3 && checkG==2){
                     cout<<"A New city has been successfully added to: "<< this->name<<endl;
-                    this->sumPoints=this->sumPoints+1;
+                    this->sumPoints=(this->sumPoints)+1;
                     return;
                 }
             }
