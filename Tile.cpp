@@ -6,7 +6,9 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 #include "Structure.cpp"
+using namespace std;
 
 
 enum class ResourceType { Hills, Forest, Mountains, Fields, Pasture, Desert, Sea };
@@ -24,19 +26,29 @@ class Tile {
 public:
     ResourceType tileResource; // The type of the resource
     int number;  // The number token on the tile
-    vector<Structure*> vertices; // for settlements and citicies.
-    vector<Structure*> edges; // for roades
-    vector<Tile*> neighbors; // Neighboring tiles
+    Structure* vertices[6]; // for settlements and citicies.
+    Structure* edges[6]; // for roades
+    Tile* neighbors[6]; // Neighboring tiles
 
-    Tile(ResourceType resource, int num) : tileResource(resource), number(num),vertices(6) ,edges(6), neighbors(6) {} // constructor
+    Tile(ResourceType resource, int num) : tileResource(resource), number(num) { // constructor
+        for (size_t i = 0; i < 6; ++i) {
+            vertices[i] = nullptr;
+            edges[i] = nullptr;
+            neighbors[i] = nullptr;
+        }
+    }
 
     ~Tile(){
         this->tileResource = ResourceType::Sea;
         this->number = 0;
-        this->vertices.clear();
-        this->edges.clear();
-        this->neighbors.clear();
+
+        for(size_t i=0; i<6; i++){
+            this->vertices[i]=nullptr;
+            this->edges[i]=nullptr;
+            this->neighbors[i]=nullptr;
+        }
     }
+
     void print() const;
 };
 
