@@ -197,13 +197,12 @@ using namespace std;
         }
     }
 
-    // void placeSettelemnt(places, placesNum, board);
-
     void Player::placeRoad(Tile* tile1, Tile* tile2){
         Structure* newRoad = &(this->roads.back()); // Get a pointer to the new road
 
         // Checking the index of the new road in tile1 and tile2
         size_t indexTile1 = (size_t)-1, indexTile2 = (size_t)-1;
+        
         for(size_t i=0; i<6; i++){
             if(tile1->neighbors[i]==tile2){
                 indexTile1 = i;
@@ -214,16 +213,15 @@ using namespace std;
         }
 
         if (indexTile1!=-1 && indexTile2!=-1) { // So the tiles have a share edge
-            tile1->edges.insert(tile1->edges.begin() + static_cast<std::vector<Structure*>::difference_type>(indexTile1), newRoad); // The newRoad will be at indexTile1
-            tile2->edges.insert(tile1->edges.begin() + static_cast<std::vector<Structure*>::difference_type>(indexTile2), newRoad);
+            addRoad(); // Checking the required resources and add a new road
+            tile1->edges[indexTile1] = newRoad; // The newRoad will be at indexTile1
+            tile2->edges[indexTile2] = newRoad;
         } else {
             cerr << "Error: The tiles do not share an edge." << endl;
         }
-
-        addRoad(); // Checking the required resources and add a new road
     }
 
-    void Player::placeRoad(vector<string> places, vector<int> placesNum) { // p1 continues to build a road.
+    void Player::placeRoad(vector<string> places, vector<int> placesNum, Catan* game) { // p1 continues to build a road.
         string st1=places[0], st2=places[1];
         int num1=placesNum[0], num2=placesNum[1];
         ResourceType R1, R2;
@@ -260,99 +258,77 @@ using namespace std;
             R2 = ResourceType::Sea;
         }
 
-
-        Tile* tile1 = new Tile(R1, num1);
-        Tile* tile2 = new Tile(R2, num2);
-        placeRoad(tile1, tile2);
+        Tile* tile1;
+        Tile* tile2;
+        for(size_t i=0; i<game->getBoard()->getTiles().size(); i++){
+            if(R1==game->getBoard()->getTiles()[i]->tileResource && num1==game->getBoard()->getTiles()[i]->number){
+                tile1 = game->getBoard()->getTiles()[i];
+            }
+            if(R2==game->getBoard()->getTiles()[i]->tileResource && num2==game->getBoard()->getTiles()[i]->number){
+                tile2 = game->getBoard()->getTiles()[i];
+            }
+        }
+        if (tile1 && tile2) {
+            if(tile2==nullptr) cout<<"nullpte"<<endl;
+            placeRoad(tile1, tile2);
+        } else {
+            std::cerr << "Error: One or both tiles not found." << std::endl;
+        }
     }
 
     // Check for two consecutive roads
     bool Player::canPlaceSettlement(Tile* tile1, Tile* tile2, Tile* tile3) {
-        size_t indexTile2=0, indexTile3=0; // tile1
-        size_t indexTile12=0, indexTile32=0; // tile2
-        size_t indexTile23=0, indexTile13=0; // tile3
+        size_t indexTile12=0, indexTile13=0; // tile1
+        size_t indexTile21=0, indexTile23=0; // tile2
+        size_t indexTile32=0, indexTile31=0; // tile3
         for (size_t i=0; i<6; i++) {
             Tile* t = tile1->neighbors[i]; // Pointer to the i'th neighbor
 
             // tile1
             if(tile1->neighbors[i]==tile2){ // if it is tile2
-                indexTile2 = i; // save the index of it --in tile1 ! --
+                indexTile12 = i; // save the index of it --in tile1 ! --
             }
             if(tile1->neighbors[i]==tile3){ // if it is tile3
-                indexTile3 = i;
+                indexTile13 = i;
             }
 
             // tile2
             if(tile2->neighbors[i]==tile1){ // if it is tile1
-                indexTile12 = i;
+                indexTile21 = i;
             }
             if(tile2->neighbors[i]==tile3){ // if it is tile3
-                indexTile32 = i;
+                indexTile23 = i;
             }
 
             // tile3
             if(tile3->neighbors[i]==tile2){ // if it is tile2
-                indexTile23 = i;
+                indexTile32 = i;
             }
             if(tile3->neighbors[i]==tile1){ // if it is tile1
-                indexTile13 = i;
+                indexTile31 = i;
             }
         }
 
         // Ensure tiles are nearby
-        if (indexTile2 == -1 || indexTile3 == -1) {
+        if (indexTile12 == -1 || indexTile13 == -1 || indexTile21 == -1
+            || indexTile23 == -1 || indexTile32 == -1 || indexTile31 == -1) {
+            cerr << "Error: The tiles do not share an edge." << endl;
             return false; // One or both tiles are not neighbors of tile1
         }
-
-        size_t smaller=0, bigger=0;
-
-        // tile1
-        if(indexTile2>indexTile3){
-            smaller = indexTile3;
-            bigger = indexTile2;
-        } else{
-            smaller = indexTile2;
-            bigger = indexTile3;
+        if((tile1->neighbors[indexTile12]->vertices[indexTile12] != NULL
+        || tile1->neighbors[indexTile13]->vertices[indexTile13] != NULL)
+        && (tile2->neighbors[indexTile21]->vertices[indexTile21] != NULL
+        || tile2->neighbors[indexTile23]->vertices[indexTile23] != NULL)
+        && (tile3->neighbors[indexTile32]->vertices[indexTile32] != NULL
+        || tile3->neighbors[indexTile31]->vertices[indexTile31] != NULL)){
+            cout<<"There is already a settlement in this place."<<endl;
+            return false;
         }
 
-        if(((tile1->edges[smaller] != NULL) && (tile1->edges[smaller-1] != NULL)) ||
-            ((tile1->edges[bigger] != NULL) && (tile1->edges[bigger+1] != NULL))){
-                return true;
-            }
-
-        // tile2
-        if(indexTile12>indexTile32){
-            smaller = indexTile32;
-            bigger = indexTile12;
-        } else{
-            smaller = indexTile12;
-            bigger = indexTile32;
-        }
-        
-        if(((tile2->edges[smaller] != NULL) && (tile2->edges[smaller-1] != NULL)) ||
-            ((tile2->edges[bigger] != NULL) && (tile2->edges[bigger+1] != NULL))){
-                return true;
-            }
-
-        // tile3
-        if(indexTile23>indexTile13){
-            smaller = indexTile13;
-            bigger = indexTile23;
-        } else{
-            smaller = indexTile23;
-            bigger = indexTile13;
-        }
-
-        if(((tile3->edges[smaller] != NULL) && (tile3->edges[smaller-1] != NULL)) ||
-            ((tile3->edges[bigger] != NULL) && (tile3->edges[bigger+1] != NULL))){
-                return true;
-            }
-            
-        cerr << "Error: The tiles do not share an edge." << endl;
-        return false;
+        return true;
     }
 
-    void Player::placeSettelemnts(vector<string> places, vector<int> placesNum){
+    void Player::placeSettelemnts(vector<string> places, vector<int> placesNum, Catan* game){
         string st1=places[0], st2=places[1], st3=places[2];
         int num1=placesNum[0], num2=placesNum[1], num3=placesNum[2];
         ResourceType R1, R2, R3;
@@ -406,11 +382,25 @@ using namespace std;
         }
 
 
-        Tile* tile1 = new Tile(R1, num1);
-        Tile* tile2 = new Tile(R2, num2);
-        Tile* tile3 = new Tile(R3, num3);
-
-        placeSettlements(tile1, tile2, tile3);
+        Tile* tile1;
+        Tile* tile2;
+        Tile* tile3;
+        for(size_t i=0; i<game->getBoard()->getTiles().size(); i++){
+            if(R1==game->getBoard()->getTiles()[i]->tileResource && num1==game->getBoard()->getTiles()[i]->number){
+                tile1 = game->getBoard()->getTiles()[i];
+            }
+            if(R2==game->getBoard()->getTiles()[i]->tileResource && num2==game->getBoard()->getTiles()[i]->number){
+                tile2 = game->getBoard()->getTiles()[i];
+            }
+            if(R3==game->getBoard()->getTiles()[i]->tileResource && num3==game->getBoard()->getTiles()[i]->number){
+                tile3 = game->getBoard()->getTiles()[i];
+            }
+        }
+        if (tile1 && tile2 && tile3) {
+            placeSettlements(tile1, tile2, tile3);
+        } else {
+            std::cerr << "Error: One or both tiles not found." << std::endl;
+        }
     }
 
     void Player::placeSettlements(Tile* tile1, Tile* tile2, Tile* tile3){
@@ -436,14 +426,89 @@ using namespace std;
         }
 
         if (indexTile1!=(size_t)-1 && indexTile2!=(size_t)-1 && indexTile3!=(size_t)-1) {
-            tile1->vertices.insert(tile1->vertices.begin() + static_cast<vector<Structure*>::difference_type>(indexTile1), newSettlement);
-            tile2->vertices.insert(tile2->vertices.begin() + static_cast<vector<Structure*>::difference_type>(indexTile2), newSettlement);
-            tile3->vertices.insert(tile3->vertices.begin() + static_cast<vector<Structure*>::difference_type>(indexTile3), newSettlement);
+            tile1->vertices[indexTile1] = newSettlement;
+            tile2->vertices[indexTile2] = newSettlement;
+            tile3->vertices[indexTile3] = newSettlement;
         } else {
             cerr << "Error: The tiles do not share an vertex." << endl;
         }
     }
 
+    void Player::placeCity(vector<string> places, vector<int> placesNum, Catan* game){
+        string st1=places[0], st2=places[1], st3=places[2];
+        int num1=placesNum[0], num2=placesNum[1], num3=placesNum[2];
+        ResourceType R1, R2, R3;
+        // ResourceType { Hills, Forest, Mountains, Fields, Pasture, Desert, Sea };
+        if(st1=="Hills"){
+            R1 = ResourceType::Hills;
+        } else if(st1=="Forest"){
+            R1 = ResourceType::Forest;
+        } else if(st1=="Mountains"){
+            R1 = ResourceType::Mountains;
+        } else if(st1=="Fields"){
+            R1 = ResourceType::Fields;
+        } else if(st1=="Pasture"){
+            R1 = ResourceType::Pasture;
+        } else if(st1=="Desert"){
+            R1 = ResourceType::Desert;
+        } else if(st1=="Sea"){
+            R1 = ResourceType::Sea;
+        }
+
+        if(st2=="Hills"){
+            R2 = ResourceType::Hills;
+        } else if(st2=="Forest"){
+            R2 = ResourceType::Forest;
+        } else if(st2=="Mountains"){
+            R2 = ResourceType::Mountains;
+        } else if(st2=="Fields"){
+            R2 = ResourceType::Fields;
+        } else if(st2=="Pasture"){
+            R2 = ResourceType::Pasture;
+        } else if(st2=="Desert"){
+            R2 = ResourceType::Desert;
+        } else if(st2=="Sea"){
+            R2 = ResourceType::Sea;
+        }
+
+        if(st3=="Hills"){
+            R3 = ResourceType::Hills;
+        } else if(st3=="Forest"){
+            R3 = ResourceType::Forest;
+        } else if(st3=="Mountains"){
+            R3 = ResourceType::Mountains;
+        } else if(st3=="Fields"){
+            R3 = ResourceType::Fields;
+        } else if(st3=="Pasture"){
+            R3 = ResourceType::Pasture;
+        } else if(st3=="Desert"){
+            R3 = ResourceType::Desert;
+        } else if(st3=="Sea"){
+            R3 = ResourceType::Sea;
+        }
+
+
+        Tile* tile1;
+        Tile* tile2;
+        Tile* tile3;
+        for(size_t i=0; i<game->getBoard()->getTiles().size(); i++){
+            if(R1==game->getBoard()->getTiles()[i]->tileResource && num1==game->getBoard()->getTiles()[i]->number){
+                tile1 = game->getBoard()->getTiles()[i];
+            }
+            if(R2==game->getBoard()->getTiles()[i]->tileResource && num2==game->getBoard()->getTiles()[i]->number){
+                tile2 = game->getBoard()->getTiles()[i];
+            }
+            if(R3==game->getBoard()->getTiles()[i]->tileResource && num3==game->getBoard()->getTiles()[i]->number){
+                tile3 = game->getBoard()->getTiles()[i];
+            }
+        }
+        if (tile1 && tile2 && tile3) {
+            placeCity(tile1, tile2, tile3);
+        } else {
+            std::cerr << "Error: One or both tiles not found." << std::endl;
+        }
+
+    }
     void Player::placeCity(Tile* tile1, Tile* tile2, Tile* tile3){
         addCity(); // Checking the required resources and add a new City
         Structure* newCity = &(this->cities.back()); // Get a pointer to the new City
@@ -451,13 +516,13 @@ using namespace std;
         // Checking the index of the new City in tile1, tile2 and tile3
         size_t indexTile1 = (size_t)-1, indexTile2 = (size_t)-1, indexTile3 = (size_t)-1;
         for(size_t i=0; i<6; i++){
-            if(tile1->neighbors[i]==tile2 && tile1->neighbors[i]==tile3){ // tile1
+            if(tile1->neighbors[i]==tile2 || tile1->neighbors[i]==tile3){ // tile1
                 indexTile1 = i;
             }
-            if(tile2->neighbors[i]==tile1 && tile2->neighbors[i]==tile3){ // tile2
+            if(tile2->neighbors[i]==tile1 || tile2->neighbors[i]==tile3){ // tile2
                 indexTile2 = i;
             }
-            if(tile3->neighbors[i]==tile1 && tile3->neighbors[i]==tile2){ // tile3
+            if(tile3->neighbors[i]==tile1 || tile3->neighbors[i]==tile2){ // tile3
                 indexTile3 = i;
             }
         }
@@ -469,9 +534,9 @@ using namespace std;
                 (tile2->vertices[indexTile2] != nullptr)&&
                 (tile3->vertices[indexTile2] != nullptr)) {
 
-                tile1->vertices.insert(tile1->vertices.begin() + static_cast<std::vector<Structure*>::difference_type>(indexTile1), newCity); // The newCity will be at indexTile1
-                tile2->vertices.insert(tile1->vertices.begin() + static_cast<std::vector<Structure*>::difference_type>(indexTile2), newCity);
-                tile3->vertices.insert(tile1->vertices.begin() + static_cast<std::vector<Structure*>::difference_type>(indexTile3), newCity);
+                tile1->vertices[indexTile1] = newCity; // The newCity will be at indexTile1
+                tile2->vertices[indexTile2] = newCity;
+                tile3->vertices[indexTile3] = newCity;
             }
         } else {
             cerr << "Error: The tiles do not share an vertex." << endl;
@@ -479,55 +544,83 @@ using namespace std;
     }
 
 // -----------------------------Game Logic-----------------------------
-    // void Player::rollDiceReturnRes(Catan* game, int num){
-    //     ReturnRes R;
-    //     string tileName;
-    //     // Run over all the tiles in the board
-    //     for (size_t j=0; j<34; j++) {
-    //         for(size_t i=0; i<6; i++){ // The 6 vertices = settlement/city
-    //             for(size_t p=0; p<3; p++){ // All the players
-    //                 for(size_t s=0; s<game->getPlayers()[i].settlements.size(); s++){ // Run over all the settlements
-    //                     // Check if there is a settlement in this vertex and who owns the settlement
-    //                     if(game->getBoard().getTiles()[j]->vertices[i]->name    ==    game->getPlayers()[i].settlements[s].name){
-    //                         tileName = game->getBoard().getTiles()[j].getTileName();
-    //                         if(tileName=="Hills"){
-    //                             R = ReturnRes::Brick;
-    //                         } else if(tileName=="Forest"){
-    //                             R = ReturnRes::Lumber;
-    //                         } else if(tileName=="Mountains"){
-    //                             R = ReturnRes::Ore;
-    //                         } else if(tileName=="Fields"){
-    //                             R = ReturnRes::Grain;
-    //                         } else if(tileName=="Pasture"){
-    //                             R = ReturnRes::Wool;
-    //                         }
-    //                         game->getPlayers()[i].returnRes.push_back(R);
-    //                     }
-    //                 }
-    //                 for(size_t c=0; c<game->getPlayers()[i].cities.size(); c++){ // Run over all the cities
-    //                     if(game->getBoard().getTiles()[j]->vertices[i]->name    ==    game->getPlayers()[i].cities[c].name){
-    //                         ResourceTile rst = game.getBoard().getTiles()[j]->tileResource;
-    //                         tileName = game.getBoard().getTiles()[j].getTileName(rst);
-    //                         if(tileName=="Hills"){
-    //                             R = ReturnRes::Brick;
-    //                         } else if(tileName=="Forest"){
-    //                             R = ReturnRes::Lumber;
-    //                         } else if(tileName=="Mountains"){
-    //                             R = ReturnRes::Ore;
-    //                         } else if(tileName=="Fields"){
-    //                             R = ReturnRes::Grain;
-    //                         } else if(tileName=="Pasture"){
-    //                             R = ReturnRes::Wool;
-    //                         }
-    //                         // If there is a city, the player get the returnRes twice
-    //                         game->getPlayers()[i].returnRes.push_back(R);
-    //                         game->getPlayers()[i].returnRes.push_back(R);
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
+    void Player::rollDiceReturnRes(Catan* game, int num){
+
+        if(num==7){ // Each player has to give up half of their returnRes 
+            cout<<"Each player has to give up half of their returnRes"<<endl;
+            for(size_t p=0; p<3; p++){ // All the players
+                if (!game->getPlayers()[p].returnRes.empty()) {
+                    size_t h = (game->getPlayers()[p].returnRes.size()) / 2;
+                    for(size_t half=0; half<h; half++){
+                        game->getPlayers()[p].returnRes.pop_back();
+                    }
+                }
+            }
+            return;
+        }
+        ReturnRes R;
+        string tileName="";
+        
+        for (size_t j=0; j<34; j++) { // Run over all the tiles in the board
+            for(size_t i=0; i<6; i++){ // The 6 vertices = settlement/city
+
+                for(size_t p=0; p<3; p++){ // All the players
+                    size_t setSize=game->getPlayers()[i].settlements.size();
+
+                    for(size_t s=0; s<setSize; s++){ // Run over all the settlements
+                        ResourceType RT = game->getBoard()->getTiles()[j]->tileResource;
+                        int NUM = game->getBoard()->getTiles()[j]->number;
+                        ResourceTile RTile = ResourceTile(RT, NUM);
+                        // Check if there is a settlement in this vertex and who owns the settlement
+                        if(num==NUM && game->getBoard()->getTiles()[j]->vertices[i]->name == game->getPlayers()[p].settlements[s].name){
+
+                            tileName = RTile.getTileName(game->getBoard()->getTiles()[j]->tileResource);
+                            if(tileName=="Hills"){
+                                R = ReturnRes::Brick;
+                            } else if(tileName=="Forest"){
+                                R = ReturnRes::Lumber;
+                            } else if(tileName=="Mountains"){
+                                R = ReturnRes::Ore;
+                            } else if(tileName=="Fields"){
+                                R = ReturnRes::Grain;
+                            } else if(tileName=="Pasture"){
+                                R = ReturnRes::Wool;
+                            }
+                            game->getPlayers()[i].returnRes.push_back(R);
+                        }
+                    }
+
+                    size_t citySize=game->getPlayers()[i].cities.size();
+
+                    for(size_t c=0; c<citySize; c++){ // Run over all the cities
+                        ResourceType RT = game->getBoard()->getTiles()[j]->tileResource;
+                        int NUM = game->getBoard()->getTiles()[j]->number;
+                        ResourceTile RTile = ResourceTile(RT, NUM);
+                        // Check if there is a city in this vertex and who owns the city
+                        if(num==NUM && game->getBoard()->getTiles()[j]->vertices[i]->name == game->getPlayers()[p].cities[c].name){
+
+                            tileName = RTile.getTileName(game->getBoard()->getTiles()[j]->tileResource);
+                            if(tileName=="Hills"){
+                                R = ReturnRes::Brick;
+                            } else if(tileName=="Forest"){
+                                R = ReturnRes::Lumber;
+                            } else if(tileName=="Mountains"){
+                                R = ReturnRes::Ore;
+                            } else if(tileName=="Fields"){
+                                R = ReturnRes::Grain;
+                            } else if(tileName=="Pasture"){
+                                R = ReturnRes::Wool;
+                            }
+                        
+                            // If there is a city, the player get the returnRes twice
+                            game->getPlayers()[i].returnRes.push_back(R);
+                            game->getPlayers()[i].returnRes.push_back(R);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     void Player::rollDice(Catan* game) {
 
@@ -535,48 +628,48 @@ using namespace std;
         int dice1 = rand() % 6 + 1;
         int dice2 = rand() % 6 + 1;
 
-        // switch (dice1 + dice2) {
-        //     case 2:
-        //         rollDiceReturnRes(game, {2});
-        //         break;
-        //     case 3:
-        //         rollDiceReturnRes(game, {3});
-        //         break;
-        //     case 4:
-        //         rollDiceReturnRes(game, {4});
-        //         break;
-        //     case 5:
-        //         rollDiceReturnRes(game, {5});
-        //         break;
-        //     case 6:
-        //         rollDiceReturnRes(game, {6});
-        //         break;
-        //     case 7:
-        //         rollDiceReturnRes(game, {7});
-        //         break;
-        //     case 8:
-        //         rollDiceReturnRes(game, {8});
-        //         break;
-        //     case 9:
-        //         rollDiceReturnRes(game, {9});
-        //         break;
-        //     case 10:
-        //         rollDiceReturnRes(game, {10});
-        //         break;
-        //     case 11:
-        //         rollDiceReturnRes(game, {11});
-        //         break;
-        //     case 12:
-        //         rollDiceReturnRes(game, {12});
-        //         break;
-        //     default:
-        //         cout << "Invalid dice roll!" << endl;
-        // }
-
         // Output the results
         cout << "Dice 1: " << dice1 << endl;
         cout << "Dice 2: " << dice2 << endl;
         cout << "Total: " << dice1 + dice2 << endl;
+
+        switch (dice1 + dice2) {
+            case 2:
+                rollDiceReturnRes(game, 2);
+                break;
+            case 3:
+                rollDiceReturnRes(game, 3);
+                break;
+            case 4:
+                rollDiceReturnRes(game, 4);
+                break;
+            case 5:
+                rollDiceReturnRes(game, 5);
+                break;
+            case 6:
+                rollDiceReturnRes(game, 6);
+                break;
+            case 7:
+                rollDiceReturnRes(game, 7);
+                break;
+            case 8:
+                rollDiceReturnRes(game, 8);
+                break;
+            case 9:
+                rollDiceReturnRes(game, 9);
+                break;
+            case 10:
+                rollDiceReturnRes(game, 10);
+                break;
+            case 11:
+                rollDiceReturnRes(game, 11);
+                break;
+            case 12:
+                rollDiceReturnRes(game, 12);
+                break;
+            default:
+                cout << "Invalid dice roll!" << endl;
+        }
     }
 
     // For example: p1 trades 1 wood (str1) for 1 brick (str2) with p2.
@@ -857,9 +950,6 @@ using namespace std;
 
         cout << p.name << "get a Victory Point." << endl;
     }
-
-
-
 
     void Player::printPoints(){
         cout << this->name << " has "<< this->sumPoints << " points." << endl;
