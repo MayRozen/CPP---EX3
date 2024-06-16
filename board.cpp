@@ -16,6 +16,7 @@ using namespace std;
     }
 
     void Board::printAsMatrix() const{ // Print the board as a matrix
+        ResourceType r; 
         for(size_t i=0; i<tiles.size(); i++){
             if(i==2 || i==7 || i==13 || i==20 || i==26 || i==31 || i==34){
                 cout << tiles[i] << endl;
