@@ -52,20 +52,21 @@ public:
 
     void printPlayerInfo();
 
-    void placeRoad(vector<string> places, vector<int> placesNum); // p1 continues to build a road.
+    void placeRoad(vector<string> places, vector<int> placesNum, Catan* game); // p1 continues to build a road.
     void placeRoad(Tile* tile1, Tile* tile2);
 
     bool hasRoadBetween(Tile* tile1, Tile* tile2);
     bool canPlaceSettlement(Tile* tile1, Tile* tile2);
 
     bool canPlaceSettlement(Tile* tile1, Tile* tile2, Tile* tile3); // Check for two consecutive roads
-    void placeSettelemnts(vector<string> places, vector<int> placesNum);
+    void placeSettelemnts(vector<string> places, vector<int> placesNum, Catan* game);
     void placeSettlements(Tile* tile1, Tile* tile2, Tile* tile3);
 
+    void placeCity(vector<string> places, vector<int> placesNum, Catan* game);
     void placeCity(Tile* tile1, Tile* tile2, Tile* tile3);
 
 // -----------------------------Game Logic-----------------------------
-    //void rollDiceReturnRes(Catan* game, int num);
+    void rollDiceReturnRes(Catan* game, int num);
     void rollDice(Catan* game);
     
     void trade(Player& p2, string str1, string str2, int numOfStr1, int numOfStr2); // p1 trades 1 wood for 1 brick with p2.
