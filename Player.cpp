@@ -951,7 +951,7 @@ using namespace std;
         size_t needBeRemove = findIndex(this->DevelopmentCards, CardType::VictoryPoint);
         //p.DevelopmentCards.erase(p.DevelopmentCards.begin() + static_cast<std::vector<DevelopmentCard>::difference_type>(needBeRemove));
         this->DevelopmentCards.pop_back();
-        cout << this->name << "get a Victory Point." << endl;
+        cout << this->name << " get a Victory Point." << endl;
     }
 
     void Player::printPoints(){
