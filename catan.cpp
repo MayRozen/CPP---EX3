@@ -36,8 +36,8 @@ vector<Player> Catan::getPlayers(){ // Return this->Players
     return this->players;
 }
         
-Board Catan::getBoard(){ // get the board of the game
-    return *this->gameBoard;
+Board* Catan::getBoard(){ // get the board of the game
+    return this->gameBoard;
 }
         
 Player Catan::ChooseStartingPlayer(){ // should print the name of the starting player
