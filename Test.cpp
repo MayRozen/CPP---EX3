@@ -50,19 +50,19 @@ TEST_CASE("Test getWinner with no winner") {
     cout<< "Test getWinner with no winner success!" <<endl;
 }
 
-// TEST_CASE("Test getWinner with a winner") {
-//     Player p1("Amit");
-//     Player p2("Yossi");
-//     Player p3("Dana");
-//     Catan* game = Catan::getInstance(p1, p2, p3);
-//     p1.sumPoints = 10; // Exactly 10 points
-//     p2.sumPoints = 9; // Less than 10 points
-//     p3.sumPoints = 9; // Less than 10 points
+TEST_CASE("Test getWinner with a winner") {
+    Player p1("Amit");
+    Player p2("Yossi");
+    Player p3("Dana");
+    Catan* game = Catan::getInstance(p1, p2, p3);
+    game->players[0].sumPoints = 10; // Exactly 10 points
+    game->players[1].sumPoints = 9; // Less than 10 points
+    game->players[2].sumPoints = 9; // Less than 10 points
 
-//     CHECK(game->getWinner().name == "Yossi"); // Player1 should be the winner
+    CHECK(game->getWinner().name == "Amit"); // Player1 should be the winner
 
-//     cout<< "Test getWinner with a winner success!" <<endl;
-// }
+    cout<< "Test getWinner with a winner success!" <<endl;
+}
 
 // -----------------------------Structure-----------------------------
 TEST_CASE("Test road structure initialization") {
