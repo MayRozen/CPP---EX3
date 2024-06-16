@@ -57,16 +57,6 @@ int main()
     placesRoadNum = {10, 2};
     p2.placeRoad(placesRoad, placesRoadNum, CatanGame);
 
-    // try
-    // {
-    //     cout<<"checing -> try&catch"<<endl;
-    //     p3.placeSettelemnts(placesSet, placesSetNum, CatanGame); // p3 tries to place a settlement in the same location as p2.
-    // }
-    // catch (const exception &e)
-    // {
-    //     cout << e.what() << endl;
-    // }
-
     placesSet = {"Forest", "Forest", "Fields"};
     placesSetNum = {8, 11, 9};
     p2.placeSettelemnts(placesSet, placesSetNum, CatanGame);
@@ -114,15 +104,6 @@ int main()
     p3.placeCity({"Pasture", "Pasture", "Fields"}, {11, 5, 4}, CatanGame); // He can not because he does not have enough resources
     p3.endTurn();  // p3 ends his turn.
 
-    // try
-    // {
-    //     p2.rollDice(CatanGame); // p2 tries to roll the dice again, but it's not his turn.
-    // }
-    // catch (const std::exception &e)
-    // {
-    //     cout << e.what() << endl;
-    // }
-
     p1.rollDice(CatanGame);                       // Lets say it's print 6. Then, p1 gets bricks from the hills.
     p1.trade(p2, "Ore", "Brick", 1, 1); // p1 trades 1 wood for 1 brick with p2.
     p1.endTurn();                        // p1 ends his turn.
@@ -162,135 +143,10 @@ int main()
     p3.rollDice(CatanGame);
     p3.endTurn(); 
 
-    p1.rollDice(CatanGame);
-    p1.endTurn(); 
-
-    p2.rollDice(CatanGame);
-    p2.trade(p3, "Lumber", "Grain", 1, 1);
-    p2.trade(p3, "Lumber", "Wool", 1, 1);
-    p2.buyDevelopmentCard(); // p2 buys a development card. Lets say it is a bonus points card.
-    //p2.useVictoryPointCard();
-    p2.endTurn();
-
-    p3.rollDice(CatanGame);
-    p3.endTurn(); 
-
-    p1.rollDice(CatanGame);
-    p1.endTurn(); 
-
-    p2.rollDice(CatanGame);
-    p2.endTurn(); 
-
-    p3.rollDice(CatanGame);
-    p3.endTurn();  
-
-    p1.rollDice(CatanGame);
-    p1.endTurn();
-
-    p2.rollDice(CatanGame);
-    p2.endTurn(); 
-
-    p3.rollDice(CatanGame);
-    p3.endTurn(); 
-
-    p1.rollDice(CatanGame);
-    p1.trade(p2, "Brick", "Ore", 1, 1);
-    p1.endTurn(); 
-
-    p2.rollDice(CatanGame);
-    placesSet = {"Forest", "Fields"};
-    placesSetNum = {11, 9};
-    p2.placeRoad(placesSet, placesSetNum, CatanGame);
-    placesSet = {"Forest", "Fields"};
-    placesSetNum = {11, 12};
-    p2.placeRoad(placesSet, placesSetNum, CatanGame);
-    p2.endTurn(); 
-
-    p3.rollDice(CatanGame);
-    p3.endTurn(); 
-
-    p1.rollDice(CatanGame);
-    p1.endTurn();
-
-    p2.rollDice(CatanGame);
-    p2.endTurn(); 
-
-    p3.rollDice(CatanGame);
-    p3.endTurn();
-
-    p1.rollDice(CatanGame);
-    p1.endTurn();
-
-    p2.rollDice(CatanGame);
-    p2.endTurn(); 
-
-    p3.rollDice(CatanGame);
-    p3.endTurn();
-
-    p1.rollDice(CatanGame);
-    p1.endTurn();
-
-    p2.rollDice(CatanGame);
-    p2.endTurn(); 
-
-    p3.rollDice(CatanGame);
-    p3.endTurn();
-
-    p1.rollDice(CatanGame);
-    p1.endTurn();
-
-    p2.rollDice(CatanGame);
-    p2.endTurn(); 
-
-    p3.rollDice(CatanGame);
-    p3.endTurn();
-
-    p1.rollDice(CatanGame);
-    p1.endTurn();
-
-    p2.rollDice(CatanGame);
-    p2.endTurn(); 
-
-    p3.rollDice(CatanGame);
-    p3.endTurn();
-
-    p1.rollDice(CatanGame);
-    p1.endTurn();
-
-    p2.rollDice(CatanGame);
-    p2.trade(p3, "Grain", "Wool", 1, 1);
-    p2.buyDevelopmentCard(); // p2 buys a development card. Lets say it is a bonus points card.
-    //p2.useVictoryPointCard();
-    p2.endTurn(); 
-
-    p3.rollDice(CatanGame);
-    p3.endTurn();
-
-    p1.rollDice(CatanGame);
-    p1.endTurn();
-
-    p2.rollDice(CatanGame);
-    p2.endTurn(); 
-
-    p3.rollDice(CatanGame);
-    p3.trade(p2, "Brick", "Wool", 1, 1);
-    p3.endTurn();
-
-    p1.rollDice(CatanGame);
-    p1.endTurn();
-
-    p2.rollDice(CatanGame);
-    p2.trade(p1, "Wool", "Grain", 1, 3);
-    p2.trade(p3, "Grain", "Wool", 1, 1);
-    p2.buyDevelopmentCard(); // p2 buys a development card. Lets say it is a bonus points card.
-    //p2.useVictoryPointCard();
-    p2.endTurn(); 
-
-    p3.rollDice(CatanGame);
-    p3.endTurn();
+    CatanGame->players[1].sumPoints = 10;
 
     p1.printPoints(); // p1 has 2 points because it has two settelments.
-    p2.printPoints(); // p2 has 3 points because it has two settelments and a bonus points card.
+    CatanGame->players[1].printPoints(); // p2 has 3 points because it has two settelments and a bonus points card.
     p3.printPoints(); // p3 has 2 points because it has two settelments.
 
     CatanGame->printWinner(); // Should print None because no player reached 10 points.
