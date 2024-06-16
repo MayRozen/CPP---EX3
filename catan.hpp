@@ -14,11 +14,11 @@ using namespace std;
     class Catan {
     private:
         static Catan* instance; // Declare as static member
-        vector<Player> players;
-        Board *gameBoard;
+        Board* gameBoard;
         Player *winner; 
     public:
-
+        vector<Player> players;
+        
         void initializationReturnRes(Player& p);
         
         // Private constructor to prevent instantiation
@@ -31,7 +31,6 @@ using namespace std;
 
             initializationReturnRes(p3);
             this->players.push_back(p3);
-            
             gameBoard = new Board(); // Assume Board has a default constructor
         }
 
@@ -39,8 +38,6 @@ using namespace std;
             this->players.clear();
             delete this->gameBoard;
         }
-        
-    
 
         static Catan* getInstance(Player& p1, Player& p2, Player& p3) {
             if (!instance) {
@@ -53,7 +50,7 @@ using namespace std;
 
         vector<Player> getPlayers(); // Return this->Players
         
-        Board getBoard(); // get the board of the game
+        Board* getBoard(); // get the board of the game
         
         Player ChooseStartingPlayer(); // should print the name of the starting player
 
