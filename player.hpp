@@ -78,7 +78,7 @@ public:
     void useBuildingRoadsCard(Player& p);
     void useYearOfAbundanceCard(Player& p);
     void useKnightCard(Catan* game, Player& p);
-    void useVictoryPointCard(Player& p);
+    void useVictoryPointCard();
     
     void printPoints(); // p1 has 2 points because it has two settelments.  
 };
