@@ -565,13 +565,13 @@ using namespace std;
             for(size_t i=0; i<6; i++){ // The 6 vertices = settlement/city
 
                 for(size_t p=0; p<3; p++){ // All the players
-                    size_t setSize=game->getPlayers()[i].settlements.size();
+                    size_t setSize=game->getPlayers()[p].settlements.size();
 
                     for(size_t s=0; s<setSize; s++){ // Run over all the settlements
                         ResourceType RT = game->getBoard()->getTiles()[j]->tileResource;
                         int NUM = game->getBoard()->getTiles()[j]->number;
                         ResourceTile RTile = ResourceTile(RT, NUM);
-                        // Check if there is a settlement in this vertex and who owns the settlement
+                        //Check if there is a settlement in this vertex and who owns the settlement
                         if(num==NUM && game->getBoard()->getTiles()[j]->vertices[i]->name == game->getPlayers()[p].settlements[s].name){
 
                             tileName = RTile.getTileName(game->getBoard()->getTiles()[j]->tileResource);
@@ -586,11 +586,12 @@ using namespace std;
                             } else if(tileName=="Pasture"){
                                 R = ReturnRes::Wool;
                             }
-                            game->getPlayers()[i].returnRes.push_back(R);
+                            game->getPlayers()[p].returnRes.push_back(R);
+                            cout<<game->getPlayers()[p].name<<" get "<< RTile.getReturnResName(R) <<endl;
                         }
                     }
 
-                    size_t citySize=game->getPlayers()[i].cities.size();
+                    size_t citySize=game->getPlayers()[p].cities.size();
 
                     for(size_t c=0; c<citySize; c++){ // Run over all the cities
                         ResourceType RT = game->getBoard()->getTiles()[j]->tileResource;
@@ -613,8 +614,9 @@ using namespace std;
                             }
                         
                             // If there is a city, the player get the returnRes twice
-                            game->getPlayers()[i].returnRes.push_back(R);
-                            game->getPlayers()[i].returnRes.push_back(R);
+                            game->getPlayers()[p].returnRes.push_back(R);
+                            game->getPlayers()[p].returnRes.push_back(R);
+                            cout<<game->getPlayers()[p].name<<" get 2 "<< RTile.getReturnResName(R) <<endl;
                         }
                     }
                 }
@@ -716,6 +718,7 @@ using namespace std;
                 checkWool = true;
             }
         }
+
 
         if (checkOre && checkGrain && checkWool) { // p2 can buy a development card
             card = new VictoryPointCard(); // Allocate memory for the card
@@ -941,14 +944,14 @@ using namespace std;
         p.DevelopmentCards.erase(p.DevelopmentCards.begin() + static_cast<std::vector<DevelopmentCard>::difference_type>(needBeRemove));
     }
 
-    void Player::useVictoryPointCard(Player& p) {
-        p.sumPoints = p.sumPoints+1;
+    void Player::useVictoryPointCard() {
+        this->sumPoints = this->sumPoints+1;
 
         // Remove the Development Card after use
-        size_t needBeRemove = findIndex(p.DevelopmentCards, CardType::VictoryPoint);
-        p.DevelopmentCards.erase(p.DevelopmentCards.begin() + static_cast<std::vector<DevelopmentCard>::difference_type>(needBeRemove));
-
-        cout << p.name << "get a Victory Point." << endl;
+        size_t needBeRemove = findIndex(this->DevelopmentCards, CardType::VictoryPoint);
+        //p.DevelopmentCards.erase(p.DevelopmentCards.begin() + static_cast<std::vector<DevelopmentCard>::difference_type>(needBeRemove));
+        this->DevelopmentCards.pop_back();
+        cout << this->name << "get a Victory Point." << endl;
     }
 
     void Player::printPoints(){
